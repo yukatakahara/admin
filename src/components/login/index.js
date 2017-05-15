@@ -161,6 +161,8 @@ export default class Register extends Component {
 			body
 		}
 
+		const t0 = performance.now();
+
 		// TODO: add /GET login to the server
 		fetch(`${API_HOST}/adminlogin`, request)
 			.then(res => {
@@ -175,6 +177,9 @@ export default class Register extends Component {
 				}
 
 				res.json().then(data => {
+					const t1 = performance.now();
+					console.log("Login call took " + (t1 - t0) + " milliseconds.")
+
 					localStorage.setItem('jwt', data.jwt)
 					localStorage.setItem('registered', true)
 					this.props.onRegister({ user: { jwt: data.jwt } })
