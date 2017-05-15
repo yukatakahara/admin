@@ -45,7 +45,6 @@ export default class Profile extends Component {
 						<section>
 							<a href="/clinic/1">{clinic.name}</a>
 							{' '}
-							<span>Price: {clinic.price}</span>
 							{' '}
 						</section>
 					)
