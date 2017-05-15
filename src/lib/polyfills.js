@@ -8,7 +8,7 @@ if (!window.Promise) {
 	window.Promise = Promise
 }
 
-// Object.assign polyfill
+// Object.assign polyfill. works on IE 13> and Safari 9>
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill
 if (typeof Object.assign != 'function') {
 	Object.assign = function(target, varArgs) {
@@ -35,4 +35,47 @@ if (typeof Object.assign != 'function') {
 		}
 		return to
 	}
+}
+
+// TODO: This should work on IE 9>. I am not sure why it's not working on IE 11
+// From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+if (!Object.keys) {
+  Object.keys = (function() {
+    'use strict';
+    var hasOwnProperty = Object.prototype.hasOwnProperty,
+        hasDontEnumBug = !({ toString: null }).propertyIsEnumerable('toString'),
+        dontEnums = [
+          'toString',
+          'toLocaleString',
+          'valueOf',
+          'hasOwnProperty',
+          'isPrototypeOf',
+          'propertyIsEnumerable',
+          'constructor'
+        ],
+        dontEnumsLength = dontEnums.length;
+
+    return function(obj) {
+      if (typeof obj !== 'function' && (typeof obj !== 'object' || obj === null)) {
+        throw new TypeError('Object.keys called on non-object');
+      }
+
+      var result = [], prop, i;
+
+      for (prop in obj) {
+        if (hasOwnProperty.call(obj, prop)) {
+          result.push(prop);
+        }
+      }
+
+      if (hasDontEnumBug) {
+        for (i = 0; i < dontEnumsLength; i++) {
+          if (hasOwnProperty.call(obj, dontEnums[i])) {
+            result.push(dontEnums[i]);
+          }
+        }
+      }
+      return result;
+    };
+  }());
 }

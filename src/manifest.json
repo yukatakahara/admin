@@ -1,6 +1,6 @@
 {
-  "name": "Doctors",
-  "short_name": "Doctors",
+  "name": "Admin",
+  "short_name": "Admin",
   "start_url": "./",
   "display": "standalone",
   "orientation": "portrait",
