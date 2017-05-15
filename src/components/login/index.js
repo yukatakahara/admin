@@ -140,12 +140,15 @@ export default class Register extends Component {
 			return
 		}
 
-		this.registerAPI()
+		const email = document.getElementById('email').value
+		const password = document.getElementById('password').value
+
+		this.registerAPI(email, password)
 	}
 
-	registerAPI() {
+	registerAPI(email, password) {
 		const body = JSON.stringify(
-			'{"email": "foo@gmail.com", "password": "password123"}'
+			{"email": email, "password": password}
 		)
 
 		const request = {
