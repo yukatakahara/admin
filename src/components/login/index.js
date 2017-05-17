@@ -26,10 +26,16 @@ export default class Register extends Component {
 	}
 
 	render({ onRegister }, { errors }) {
+		console.log(style.login)
+		console.log(style.logout)
+
+		var apiError = 'invalid';
+		if (errors.api) apiError += ' api-error';
+
 		return (
 			<div class={style.login}>
 				<h1>Log into your account.</h1>
-				<form onSubmit={this.handleSubmit} novalidate>
+				<form id="login" onSubmit={this.handleSubmit} novalidate>
 
 					<label htmlFor="email">Email:</label>
 					<input
@@ -61,6 +67,7 @@ export default class Register extends Component {
 					<br />
 
 					<button>LOG IN</button>
+					<label id="tmp" className={apiError}>{errors.api}</label>
 				</form>
 			</div>
 		)
@@ -117,18 +124,16 @@ export default class Register extends Component {
 	handleSubmit(event) {
 		event.preventDefault()
 
-		const form = event.target
-		const data = new FormData(event.target)
-
 		let errors = {}
 
-		for (let name of data.keys()) {
-			const input = form.elements[name]
-			const validateName = input.dataset.validate
+		const elements = document.getElementById('login').elements
+
+		Array.prototype.forEach.call(elements, element => {
+			const validateName = element.dataset.validate
 			if (validateName) {
-				errors = inputValidator[validateName](errors, data.get(name))
+				errors = inputValidator[validateName](errors, element.value)
 			}
-		}
+		})
 
 		if (Object.keys(errors).length) {
 			this.setState({
