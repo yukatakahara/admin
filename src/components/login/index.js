@@ -63,6 +63,10 @@ export default class Register extends Component {
 
 					<button class={style.button}>LOG IN</button>
 					<label class={classNames(style.invalid, style.apiError)}>{errors.api}</label>
+					{this.state.spinner &&
+						<div class={style.loader}></div>
+					}
+					<div class={style.clear}></div>
 				</form>
 			</div>
 		)
@@ -119,6 +123,7 @@ export default class Register extends Component {
 	handleSubmit(event) {
 		event.preventDefault()
 
+		this.setState({ errors: {}, spinner: false })
 		let errors = {}
 
 		const elements = document.getElementById('login').elements
@@ -163,9 +168,11 @@ export default class Register extends Component {
 
 		const t0 = performance.now();
 
-		// TODO: add /GET login to the server
+		this.setState({ spinner: true })
+
 		fetch(`${API_HOST}/adminlogin`, request)
 			.then(res => {
+				this.setState({ spinner: false })
 				if (res.status !== 200) {
 					console.log(
 						'Looks like there was a problem. Status Code: ' + res.status
@@ -187,7 +194,9 @@ export default class Register extends Component {
 					return
 				})
 			})
-			.catch(err => this.setState({ errors: { api: 'failed to register' } }))
+			.catch(err => {
+				this.setState({ errors: { api: 'failed to register' }, spinner: false })
+			})
 	}
 }
 
