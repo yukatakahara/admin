@@ -2,9 +2,9 @@
 
 import { h, Component } from 'preact'
 import { route } from 'preact-router'
-// import fetch from 'unfetch'
 
 import style from './style'
+const classNames = require('classnames');
 
 export default class Register extends Component {
 	constructor() {
@@ -26,16 +26,10 @@ export default class Register extends Component {
 	}
 
 	render({ onRegister }, { errors }) {
-		console.log(style.login)
-		console.log(style.logout)
-
-		var apiError = 'invalid';
-		if (errors.api) apiError += ' api-error';
-
 		return (
 			<div class={style.login}>
 				<h1>Log into your account.</h1>
-				<form id="login" onSubmit={this.handleSubmit} novalidate>
+				<form id="login" onSubmit={this.handleSubmit} novalidate class={style.form}>
 
 					<label htmlFor="email">Email:</label>
 					<input
@@ -47,6 +41,7 @@ export default class Register extends Component {
 						onkeyup={this.handleEmailKeyup}
 						maxlength="30"
 						autofocus
+						class={style.input}
 					/>
 					<label class={style.invalid}>{errors.email}</label>
 
@@ -66,8 +61,8 @@ export default class Register extends Component {
 					<br />
 					<br />
 
-					<button>LOG IN</button>
-					<label id="tmp" className={apiError}>{errors.api}</label>
+					<button class={style.button}>LOG IN</button>
+					<label class={classNames(style.invalid, style.apiError)}>{errors.api}</label>
 				</form>
 			</div>
 		)
@@ -177,7 +172,7 @@ export default class Register extends Component {
 					)
 					console.log(res)
 
-					this.setState({ errors: { api: 'failed to register' } })
+					this.setState({ errors: { api: 'Failed to register' } })
 					return
 				}
 
