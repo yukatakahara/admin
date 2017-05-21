@@ -5,6 +5,7 @@ import Header from './header'
 import Home from './home'
 import Login from './login'
 import Clinic from './clinic'
+import CreateClinic from './create-clinic'
 
 export default class App extends Component {
 	constructor() {
@@ -47,6 +48,7 @@ export default class App extends Component {
 				<Router onChange={this.handleRoute}>
 					<Home path="/" user={user} />
 					<Login path="/login" onRegister={this.setUser} />
+					<CreateClinic path="/clinic/new" />
 					<Clinic path="/clinic/:id" />
 				</Router>
 			</div>

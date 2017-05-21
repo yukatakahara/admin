@@ -29,9 +29,7 @@ export default class Profile extends Component {
 
 	render({user}) {
 		if (user.jwt) {
-			console.log('user logged in')
 		} else {
-			console.log('user not logged in')
 			return
 		}
 
@@ -39,6 +37,10 @@ export default class Profile extends Component {
 
 		return (
 			<div class={style.home}>
+				<div class={style.createClinic}>
+				<a href="/clinic/new">Create Clinic</a>
+				</div>
+
 				<h1>Clinics</h1>
 				{clinics.map(clinic => {
 					return (
