@@ -2,6 +2,7 @@
 
 import { h, Component } from 'preact'
 import { route } from 'preact-router'
+import { addClinic } from './api'
 
 import style from './style'
 const classNames = require('classnames');
@@ -143,10 +144,26 @@ export default class Register extends Component {
 			return
 		}
 
-		const email = document.getElementById('name').value
-		const password = document.getElementById('address1').value
+		const clinic = {
+			email: document.getElementById('name').value,
+			address1: document.getElementById('address1').value
+		}
 
-		// this.registerAPI(email, password)
+		console.log("make API call", clinic)
+
+		let success = data => {
+			console.log(data)
+		}
+
+		let err = errors => {
+			console.log("errors", errors)
+			// this.setState({
+			// 	errors: errors,
+			// 	spinner: false
+			// })
+		}
+
+		addClinic(clinic).then(success).catch(err)
 	}
 
 	registerAPI(email, password) {
@@ -226,13 +243,3 @@ const inputValidator = {
 	}
 }
 
-const validateEmail = email => {
-	const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-	return re.test(email)
-}
-
-const validatePassword = password => {
-	if (password.length > 5) {
-		return true
-	}
-}

@@ -1,9 +1,9 @@
 /*global API_HOST*/
 
-function addClinic() {
+function addClinic(clinic) {
 	return new Promise((resolve, reject) => {
 		const body = JSON.stringify(
-			{"email": email, "password": password}
+			{"name": clinic.name, "address1": clinic.addrress1}
 		)
 
 		const request = {
@@ -18,18 +18,18 @@ function addClinic() {
 
 		const t0 = performance.now();
 
-		this.setState({ spinner: true })
+		// this.setState({ spinner: true })
 
 		fetch(`${API_HOST}/addClinic`, request)
 			.then(res => {
-				this.setState({ spinner: false })
+				// this.setState({ spinner: false })
 				if (res.status !== 200) {
 					console.log(
 						'Looks like there was a problem. Status Code: ' + res.status
 					)
 					console.log(res)
 
-					this.setState({ errors: { api: 'Failed to register' } })
+					reject({ api: 'Failed to create a clinic' })
 					return
 				}
 
@@ -37,15 +37,13 @@ function addClinic() {
 					const t1 = performance.now();
 					console.log("Login call took " + (t1 - t0) + " milliseconds.")
 
-					localStorage.setItem('jwt', data.jwt)
-					localStorage.setItem('registered', true)
-					this.props.onRegister({ user: { jwt: data.jwt } })
-					route('/')
+					resolve({message: "success"})
+					// route('/')
 					return
 				})
 			})
 			.catch(err => {
-				this.setState({ errors: { api: 'failed to register' }, spinner: false })
+				reject({ api: 'Failed to create a clinic' })
 			})
 	})
 }
