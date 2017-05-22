@@ -24,12 +24,11 @@ export default class Profile extends Component {
 		}
 
 		// getLocation().then(getDoctors).then(successDoc).catch(errDoc);
-		getDoctors({ lat: '1', lon: '1' }).then(successDoc).catch(errDoc)
+		getDoctors({ lat: '1', lon: '1', jwt: this.props.user.jwt }).then(successDoc).catch(errDoc)
 	}
 
 	render({user}) {
-		if (user.jwt) {
-		} else {
+		if (!user.jwt) {
 			return
 		}
 

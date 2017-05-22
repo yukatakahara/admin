@@ -5,9 +5,8 @@ import { route } from 'preact-router'
 import { addClinic } from './api'
 
 import style from './style'
-const classNames = require('classnames');
 
-export default class Register extends Component {
+export default class AddClinic extends Component {
 	constructor() {
 		super()
 
@@ -17,8 +16,6 @@ export default class Register extends Component {
 		}
 
 		this.handleSubmit = this.handleSubmit.bind(this)
-		// this.handleEmailKeyup = this.handleEmailKeyup.bind(this)
-		// this.handlePasswordKeyup = this.handlePasswordKeyup.bind(this)
 	}
 
 	componentDidMount() {
@@ -26,7 +23,11 @@ export default class Register extends Component {
 		document.getElementById('name').focus()
 	}
 
-	render({ onRegister }, { errors }) {
+	render({user}, { errors }) {
+		if (!user.jwt) {
+			return
+		}
+
 		return (
 			<div class={style.login}>
 				<h1>Create Clinic.</h1>
@@ -51,7 +52,7 @@ export default class Register extends Component {
 					<label htmlFor="address1">address1:</label>
 					<input
 						class={errors.address1 ? style['invalid-input'] : style.password}
-						type="password"
+						type="text"
 						name="address1"
 						id="address1"
 						data-validate="address1"
@@ -61,7 +62,7 @@ export default class Register extends Component {
 					<br />
 
 					<button class={style.button}>LOG IN</button>
-					<label class={classNames(style.invalid, style.apiError)}>{errors.api}</label>
+					<label class={style.invalid + ' ' + style.apiError}>{errors.api}</label>
 					{this.state.spinner &&
 						<div class={style.loader}></div>
 					}
@@ -69,54 +70,6 @@ export default class Register extends Component {
 				</form>
 			</div>
 		)
-	}
-
-	handlePasswordKeyup(event) {
-		const password = event.target.value
-
-		if (!password) {
-			return
-		}
-
-		if (this.state.submit) {
-			let errors = this.state.errors
-
-			if (!validatePassword(password)) {
-				errors = Object.assign(errors, {
-					password: 'Password should be at least 6 characters'
-				})
-			} else {
-				errors = Object.assign(errors, { password: '' })
-			}
-
-			this.setState({
-				errors
-			})
-		}
-	}
-
-	handleEmailKeyup(event) {
-		const email = event.target.value
-
-		if (!email) {
-			return
-		}
-
-		if (this.state.submit) {
-			let errors = this.state.errors
-
-			if (!validateEmail(email)) {
-				errors = Object.assign(errors, {
-					email: 'Please provide a valid email address'
-				})
-			} else {
-				errors = Object.assign(errors, { email: '' })
-			}
-
-			this.setState({
-				errors
-			})
-		}
 	}
 
 	handleSubmit(event) {
@@ -145,73 +98,24 @@ export default class Register extends Component {
 		}
 
 		const clinic = {
-			email: document.getElementById('name').value,
-			address1: document.getElementById('address1').value
+			name: document.getElementById('name').value,
+			address1: document.getElementById('address1').value,
+			jwt: this.props.user.jwt
 		}
-
-		console.log("make API call", clinic)
 
 		let success = data => {
 			console.log(data)
+			route('/')
 		}
 
 		let err = errors => {
-			console.log("errors", errors)
-			// this.setState({
-			// 	errors: errors,
-			// 	spinner: false
-			// })
+			this.setState({
+				errors: errors,
+				spinner: false
+			})
 		}
 
 		addClinic(clinic).then(success).catch(err)
-	}
-
-	registerAPI(email, password) {
-		const body = JSON.stringify(
-			{"email": email, "password": password}
-		)
-
-		const request = {
-			mode: 'cors',
-			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body
-		}
-
-		const t0 = performance.now();
-
-		this.setState({ spinner: true })
-
-		fetch(`${API_HOST}/adminlogin`, request)
-			.then(res => {
-				this.setState({ spinner: false })
-				if (res.status !== 200) {
-					console.log(
-						'Looks like there was a problem. Status Code: ' + res.status
-					)
-					console.log(res)
-
-					this.setState({ errors: { api: 'Failed to register' } })
-					return
-				}
-
-				res.json().then(data => {
-					const t1 = performance.now();
-					console.log("Login call took " + (t1 - t0) + " milliseconds.")
-
-					localStorage.setItem('jwt', data.jwt)
-					localStorage.setItem('registered', true)
-					this.props.onRegister({ user: { jwt: data.jwt } })
-					route('/')
-					return
-				})
-			})
-			.catch(err => {
-				this.setState({ errors: { api: 'failed to register' }, spinner: false })
-			})
 	}
 }
 
@@ -242,4 +146,3 @@ const inputValidator = {
 		return errors
 	}
 }
-

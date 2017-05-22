@@ -3,7 +3,7 @@
 function addClinic(clinic) {
 	return new Promise((resolve, reject) => {
 		const body = JSON.stringify(
-			{"name": clinic.name, "address1": clinic.addrress1}
+			{"name": clinic.name, "address1": clinic.address1}
 		)
 
 		const request = {
@@ -11,7 +11,8 @@ function addClinic(clinic) {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				'Authorization': 'Bearer ' + clinic.jwt
 			},
 			body
 		}
@@ -20,11 +21,11 @@ function addClinic(clinic) {
 
 		// this.setState({ spinner: true })
 
-		fetch(`${API_HOST}/addClinic`, request)
+		fetch(`${API_HOST}/clinics`, request)
 			.then(res => {
 				// this.setState({ spinner: false })
 				if (res.status !== 200) {
-					console.log(
+					console.error(
 						'Looks like there was a problem. Status Code: ' + res.status
 					)
 					console.log(res)
@@ -43,6 +44,7 @@ function addClinic(clinic) {
 				})
 			})
 			.catch(err => {
+				console.error(err)
 				reject({ api: 'Failed to create a clinic' })
 			})
 	})
