@@ -41,12 +41,11 @@ export default class Profile extends Component {
 		getDoctors({ lat: '1', lon: '1', jwt: this.state.user.jwt }).then(successDoc).catch(errDoc)
 	}
 
-	render({user}) {
+	render({user}, {clinics}) {
 		if (!user.jwt) {
 			return
 		}
 
-		let clinics = this.state.clinics
 
 		return (
 			<div class={style.home}>
@@ -58,7 +57,7 @@ export default class Profile extends Component {
 				{clinics.map(clinic => {
 					return (
 						<section>
-							<a href="/clinic/1">{clinic.name}</a>
+							<a href={"/clinic/" + slugify(clinic.name)}>{clinic.name}</a>
 							{' '}
 							{' '}
 						</section>
@@ -67,4 +66,13 @@ export default class Profile extends Component {
 			</div>
 		)
 	}
+}
+
+function slugify(text) {
+  return text.toString().toLowerCase()
+    .replace(/\s+/g, '-')           // Replace spaces with -
+    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+    .replace(/^-+/, '')             // Trim - from start of text
+    .replace(/-+$/, '');            // Trim - from end of text
 }
