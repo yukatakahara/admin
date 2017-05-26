@@ -61,7 +61,7 @@ export default class AddClinic extends Component {
 					<br />
 					<br />
 
-					<button class={style.button}>LOG IN</button>
+					<button class={style.button}>Create Clinic</button>
 					<label class={style.invalid + ' ' + style.apiError}>{errors.api}</label>
 					{this.state.spinner &&
 						<div class={style.loader}></div>

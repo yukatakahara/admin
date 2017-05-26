@@ -6,10 +6,24 @@ import { getDoctors } from './api'
 export default class Profile extends Component {
 	state = {
 		count: 0,
-		clinics: []
+		clinics: [],
+		user: { jwt: '' }
 	}
 
 	componentDidMount() {
+		// check localStorage for jwt (user logged-in)
+		let jwt = localStorage.getItem('jwt')
+		let registered = localStorage.getItem('registered')
+
+		// user is not logged in - don't show anything
+		if (!jwt) {
+			this.state.user.jwt = ''
+			return
+		}
+
+		// show success message if we just registered (not all the time)
+		this.state.user.jwt = jwt
+
 		let successDoc = data => {
 			this.setState({
 				clinics: data
@@ -24,7 +38,7 @@ export default class Profile extends Component {
 		}
 
 		// getLocation().then(getDoctors).then(successDoc).catch(errDoc);
-		getDoctors({ lat: '1', lon: '1', jwt: this.props.user.jwt }).then(successDoc).catch(errDoc)
+		getDoctors({ lat: '1', lon: '1', jwt: this.state.user.jwt }).then(successDoc).catch(errDoc)
 	}
 
 	render({user}) {
