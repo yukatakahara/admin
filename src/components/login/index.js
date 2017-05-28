@@ -179,7 +179,7 @@ export default class Register extends Component {
 					)
 					console.log(res)
 
-					this.setState({ errors: { api: 'Failed to register' } })
+					this.setState({ errors: { api: 'Failed to login' } })
 					return
 				}
 
@@ -195,7 +195,7 @@ export default class Register extends Component {
 				})
 			})
 			.catch(err => {
-				this.setState({ errors: { api: 'failed to register' }, spinner: false })
+				this.setState({ errors: { api: 'Failed to login' }, spinner: false })
 			})
 	}
 }
