@@ -10,7 +10,7 @@ function getDoctors(crd) {
 			},
 		}
 
-		fetch(`${API_HOST}/doctors?lat=${crd.latitude}&lon=${crd.longitude}`, request)
+		fetch(`${API_HOST}/clinics?lat=${crd.latitude}&lon=${crd.longitude}`, request)
 			.then(res => {
 				if (res.status !== 200) {
 					console.log(
