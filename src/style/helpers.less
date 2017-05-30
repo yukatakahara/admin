@@ -1,2 +1,34 @@
-@import 'variables';
-@import 'mixins';
+@red: #F00;
+@blue: #00F;
+@white: #FFF;
+@gray: #999;
+@black: #000;
+
+@powder-blue: #4abdac;
+@cotton: #99ced4;
+@blush: #eeb6b7;
+@smoke: #6e7376;
+
+@salmon: #fa7c92;
+@rain: #6ec4db;
+@buttermilk: #fff7c0;
+@lead: #66ab8c;
+
+.fill() {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.scroll() {
+	overflow: auto;
+	overflow-scrolling: touch;
+
+	& > .inner {
+		position: relative;
+		transform: translateZ(0);
+		overflow: hidden;
+	}
+}

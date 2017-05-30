@@ -4,7 +4,6 @@ import { h, Component } from 'preact'
 import { route } from 'preact-router'
 
 import style from './style'
-const classNames = require('classnames');
 
 export default class Register extends Component {
 	constructor() {
@@ -62,7 +61,7 @@ export default class Register extends Component {
 					<br />
 
 					<button class={style.button}>LOG IN</button>
-					<label class={classNames(style.invalid, style.apiError)}>{errors.api}</label>
+					<label class={style.invalid + " " + style.apiError}>{errors.api}</label>
 					{this.state.spinner &&
 						<div class={style.loader}></div>
 					}
@@ -169,6 +168,8 @@ export default class Register extends Component {
 		const t0 = performance.now();
 
 		this.setState({ spinner: true })
+
+    const API_HOST = process.env.NODE_ENV === 'production' ? 'https://api.healthcobot.com' : 'http://localhost:3000'
 
 		fetch(`${API_HOST}/adminlogin`, request)
 			.then(res => {

@@ -21,6 +21,8 @@ function addClinic(clinic) {
 
 		// this.setState({ spinner: true })
 
+    const API_HOST = process.env.NODE_ENV === 'production' ? 'https://api.healthcobot.com' : 'http://localhost:3000'
+
 		fetch(`${API_HOST}/clinics`, request)
 			.then(res => {
 				// this.setState({ spinner: false })
