@@ -1,12 +1,11 @@
 /* eslint eqeqeq: "off" */
-
 // polyfills for fetch, Promise, and Object.assign
 
 import 'unfetch/polyfill'
 import Promise from 'promise-polyfill'
 
 // check for window object before adding anything to it.
-if (typeof window !== "underfined") {
+if (typeof window !== "undefined") {
 	if (!window.Promise) {
 		window.Promise = Promise
 	}
