@@ -30,7 +30,7 @@ export default class AddClinic extends Component {
 
 		return (
 			<div class={style.login}>
-				<h1>Create Clinic.</h1>
+				<h1>Add Clinic</h1>
 				<form id="createClinic" onSubmit={this.handleSubmit} novalidate class={style.form}>
 
 					<label htmlFor="name">Name:</label>
