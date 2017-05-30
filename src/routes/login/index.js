@@ -27,7 +27,7 @@ export default class Register extends Component {
 	render({ onRegister }, { errors }) {
 		return (
 			<div class={style.login}>
-				<h1>Log into your account.</h1>
+				<h1>Login to your account.</h1>
 				<form id="login" onSubmit={this.handleSubmit} novalidate class={style.form}>
 
 					<label htmlFor="email">Email:</label>
