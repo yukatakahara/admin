@@ -2,10 +2,10 @@ import { h, Component } from 'preact'
 import { Router } from 'preact-router'
 
 import Header from './header'
-import Home from './home'
-import Login from './login'
-import Clinic from './clinic'
-import CreateClinic from './create-clinic'
+import Home from '../routes/home'
+import Login from '../routes/login'
+import Clinic from '../routes/clinic'
+import CreateClinic from '../routes/create-clinic'
 
 export default class App extends Component {
 	constructor() {
@@ -55,3 +55,4 @@ export default class App extends Component {
 		)
 	}
 }
+
