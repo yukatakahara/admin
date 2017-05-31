@@ -19,7 +19,7 @@ export default class Register extends Component {
 	componentDidMount() {
 	}
 
-	render({ onRegister }, { errors }) {
+	render({}, { errors }) {
 		return (
 			<div class={style.register}>
 				<h1>Clinic page</h1>
