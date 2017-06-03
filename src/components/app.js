@@ -1,5 +1,6 @@
 import { h, Component } from 'preact'
 import { Router } from 'preact-router'
+import localStorage from '../lib/storage';
 
 import Header from './header'
 import Home from '../routes/home'
