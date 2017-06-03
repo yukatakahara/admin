@@ -4,10 +4,16 @@ import { getLocation } from '../../lib/location'
 import { getDoctors } from './api'
 
 export default class Profile extends Component {
-	state = {
-		count: 0,
-		clinics: [],
-		user: { jwt: '' }
+	constructor() {
+		super()
+
+		this.clickClinic = this.clickClinic.bind(this)
+
+		this.state = {
+			count: 0,
+			clinics: [],
+			user: { jwt: '' }
+		}
 	}
 
 	componentDidMount() {
@@ -28,6 +34,7 @@ export default class Profile extends Component {
 			this.setState({
 				clinics: data
 			})
+			window.clinics = data;
 		}
 
 		let errDoc = data => {
@@ -35,6 +42,7 @@ export default class Profile extends Component {
 			this.setState({
 				clinics: []
 			})
+
 		}
 
 		// getLocation().then(getDoctors).then(successDoc).catch(errDoc);
@@ -46,7 +54,6 @@ export default class Profile extends Component {
 			return
 		}
 
-
 		return (
 			<div class={style.home}>
 				<div class={style.createClinic}>
@@ -57,7 +64,7 @@ export default class Profile extends Component {
 				{clinics.map(clinic => {
 					return (
 						<section>
-							<a href={"/clinic/" + slugify(clinic.name)}>{clinic.name}</a>
+							<a href={"/clinic/" + slugify(clinic.name)} onClick={this.clickClinic} data-clinic-id="12">{clinic.name}</a>
 							{' '}
 							{' '}
 						</section>
@@ -65,6 +72,14 @@ export default class Profile extends Component {
 				})}
 			</div>
 		)
+	}
+
+	clickClinic(event) {
+		event.preventDefault()
+		console.log('foo', event.target.dataset.clinicId)
+		window.clinic=event.target.dataset.clinicId
+		return;
+		// window.clinic =
 	}
 }
 
