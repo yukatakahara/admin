@@ -1,5 +1,5 @@
 import { h, Component } from 'preact'
-import { Link } from 'preact-router'
+import { Link, route } from 'preact-router'
 import style from './style'
 
 export default class Header extends Component {
@@ -34,5 +34,6 @@ export default class Header extends Component {
 		event.preventDefault()
 		localStorage.removeItem('jwt')
 		this.props.onLogout({ user: { jwt: '' } })
+		route('/')
 	}
 }

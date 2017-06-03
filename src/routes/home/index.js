@@ -34,7 +34,6 @@ export default class Profile extends Component {
 			this.setState({
 				clinics: data
 			})
-			window.clinics = data;
 		}
 
 		let errDoc = data => {
@@ -42,7 +41,6 @@ export default class Profile extends Component {
 			this.setState({
 				clinics: []
 			})
-
 		}
 
 		// getLocation().then(getDoctors).then(successDoc).catch(errDoc);
@@ -64,7 +62,7 @@ export default class Profile extends Component {
 				{clinics.map(clinic => {
 					return (
 						<section>
-							<a href={"/clinic/" + slugify(clinic.name)} onClick={this.clickClinic} data-clinic-id="12">{clinic.name}</a>
+							<a href={"/clinic/" + clinic.id} onClick={this.clickClinic} data-clinic-id="12">{clinic.name}</a>
 							{' '}
 							{' '}
 						</section>
@@ -75,19 +73,7 @@ export default class Profile extends Component {
 	}
 
 	clickClinic(event) {
+		// TODO: might not be needed
 		event.preventDefault()
-		console.log('foo', event.target.dataset.clinicId)
-		window.clinic=event.target.dataset.clinicId
-		return;
-		// window.clinic =
 	}
-}
-
-function slugify(text) {
-  return text.toString().toLowerCase()
-    .replace(/\s+/g, '-')           // Replace spaces with -
-    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-    .replace(/^-+/, '')             // Trim - from start of text
-    .replace(/-+$/, '');            // Trim - from end of text
 }

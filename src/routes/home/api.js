@@ -22,12 +22,9 @@ function getDoctors(crd) {
 					return
 				}
 
-				// TODO: get the clinic id as well
-				// we need it so we can pass it to the /clinic page
-				// the /clinic page will fetch more info like employees
 				res.json().then(data => {
 					let clinics = data.map(clinic => {
-						return { name: clinic.name, price: clinic.price }
+						return { id:clinic.id, name: clinic.name, price: clinic.price }
 					})
 					resolve(clinics)
 				})

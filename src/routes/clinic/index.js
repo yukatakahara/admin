@@ -9,26 +9,41 @@ export default class Register extends Component {
 	constructor() {
 		super()
 
-
-
 		this.state = {
 			/** Contains any validation errors */
+			user: { jwt: '' },
 			errors: { email: '' },
-			clinic: {}
+			clinic: {},
+			foo: ""
 		}
-
 	}
 
 	componentDidMount() {
-		// TODO: get clinic id from URL
-		// get all clinic info and employees based on clinic id
+		let jwt = localStorage.getItem('jwt')
+		let registered = localStorage.getItem('registered')
+
+		// user is not logged in
+		if (!jwt) {
+			// TODO: submit a bug
+			// route('/')
+			return
+		}
+
+		// const clinicId = window.location.pathname.substring(8)
+
+		// TODO: get all clinic info and employees based on clinic id
+		// TODO: what if clinic is not found? go home
+		// getClinic({ lat: '1', lon: '1', jwt: this.state.user.jwt }).then(successDoc).catch(errDoc)
+
 		// this.state.clinic = getClinic(12)
-		this.state.clinic = {id: 21, name: "foobar"}
+
+		this.setState({user: {jwt: jwt}, clinic: {id: 21, name: "foobar"}})
 	}
 
-	render({}, { errors, clinic }) {
-		// const clinic = window.clinic
-		// if no clinic, get it from the server
+	render({}, { user, errors, clinic}) {
+		if (!user.jwt) {
+			return
+		}
 
 		return (
 			<div class={style.register}>
