@@ -25,8 +25,7 @@ export default class Register extends Component {
 
 		// user is not logged in
 		if (!jwt) {
-			// TODO: submit a bug
-			// route('/')
+			route('/')
 			return
 		}
 
