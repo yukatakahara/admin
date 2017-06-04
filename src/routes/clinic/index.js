@@ -2,6 +2,7 @@
 
 import { h, Component } from 'preact'
 import { route } from 'preact-router'
+import { getClinic } from './api'
 
 import style from './style'
 
@@ -29,11 +30,28 @@ export default class Register extends Component {
 			return
 		}
 
-		// const clinicId = window.location.pathname.substring(8)
+		const clinicId = window.location.pathname.substring(8)
+
 
 		// TODO: get all clinic info and employees based on clinic id
 		// TODO: what if clinic is not found? go home
-		// getClinic({ lat: '1', lon: '1', jwt: this.state.user.jwt }).then(successDoc).catch(errDoc)
+		console.log('before')
+		getClinic({ jwt, clinicId }).then(successDoc).catch(errDoc)
+		console.log('after')
+
+		let successDoc = data => {
+			console.log('data', data)
+			this.setState({
+				clinics: data
+			})
+		}
+
+		let errDoc = data => {
+			console.log("error", data)
+			this.setState({
+				clinics: []
+			})
+		}
 
 		// this.state.clinic = getClinic(12)
 
