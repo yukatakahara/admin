@@ -7,6 +7,7 @@ import Home from '../routes/home'
 import Login from '../routes/login'
 import Clinic from '../routes/clinic'
 import CreateClinic from '../routes/create-clinic'
+import AddEmployee from '../routes/add-employee'
 
 export default class App extends Component {
 	constructor() {
@@ -50,6 +51,7 @@ export default class App extends Component {
 					<Home path="/" user={user} />
 					<Login path="/login" onRegister={this.setUser} />
 					<CreateClinic path="/clinic/new" user={user} />
+					<AddEmployee path="/employee/new" user={user} />
 					<Clinic path="/clinic/:id" />
 				</Router>
 			</div>
