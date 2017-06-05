@@ -14,8 +14,7 @@ export default class Register extends Component {
 			/** Contains any validation errors */
 			user: { jwt: '' },
 			errors: { email: '' },
-			clinic: {},
-			foo: ""
+			clinic: {employees: []},
 		}
 	}
 
@@ -32,29 +31,20 @@ export default class Register extends Component {
 		const clinicId = window.location.pathname.substring(8)
 
 
-		// TODO: get all clinic info and employees based on clinic id
-		// TODO: what if clinic is not found? go home
-		console.log('before')
-		getClinic({ jwt, clinicId }).then(successDoc).catch(errDoc)
-		console.log('after')
-
 		let successDoc = data => {
-			console.log('data', data)
+			data.employees = [{name: 'Josh Belttinore', email: 'Josh_belltinore1@gmail.com'}]
 			this.setState({
-				clinics: data
+				user: {jwt: jwt},
+				clinic: data
 			})
 		}
 
-		let errDoc = data => {
-			console.log("error", data)
-			this.setState({
-				clinics: []
-			})
+		let errDoc = err => {
+			console.log(err.message)
+			route('/')
 		}
 
-		// this.state.clinic = getClinic(12)
-
-		this.setState({user: {jwt: jwt}, clinic: {id: 21, name: "foobar"}})
+		getClinic({ jwt, clinicId }).then(successDoc).catch(errDoc)
 	}
 
 	render({}, { user, errors, clinic}) {
@@ -63,9 +53,29 @@ export default class Register extends Component {
 		}
 
 		return (
-			<div class={style.register}>
+			<div class={style.clinic}>
 				<h1>Clinic page</h1>
-				<p>{clinic.name}</p>
+				<div class={style.section}>
+					<label>Name:</label>
+					<p>{clinic.name}</p>
+					<label>Address1:</label>
+					<p>{clinic.address1}</p>
+				</div>
+				<br/>
+
+				<h3>Employees:</h3>
+				{clinic.employees.map(employee => {
+					return (
+						<section class={style.section}>
+							<p>{employee.name}</p>
+							<p>{employee.email}</p>
+						</section>
+					)
+				})}
+
+				<div class={style.addEmployee}>
+				<a href="/employee/new">Add Employee</a>
+				</div>
 			</div>
 		)
 	}

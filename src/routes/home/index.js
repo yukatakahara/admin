@@ -62,7 +62,7 @@ export default class Profile extends Component {
 				{clinics.map(clinic => {
 					return (
 						<section>
-							<a href={"/clinic/" + clinic.id} onClick={this.clickClinic} data-clinic-id="12">{clinic.name}</a>
+							<a href={"/clinic/" + clinic.id} onClick={this.clickClinic}>{clinic.name}</a>
 							{' '}
 							{' '}
 						</section>

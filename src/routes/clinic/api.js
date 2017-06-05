@@ -1,7 +1,6 @@
 /*global API_HOST*/
 
 function getClinic(options) {
-	console.log("options", options)
 	return new Promise((resolve, reject) => {
 		const request = {
 			headers: {
@@ -13,13 +12,10 @@ function getClinic(options) {
 
     const API_HOST = process.env.NODE_ENV === 'production' ? 'https://api.healthcobot.com' : 'http://localhost:3000'
 
-		fetch(`${API_HOST}/clinic/${options.clinicId}`, request)
+		fetch(`${API_HOST}/clinics/${options.clinicId}`, request)
 			.then(res => {
 				if (res.status !== 200) {
-					console.log(
-						'Looks like there was a problem. Status Code: ' + res.status
-					)
-					resolve()
+					reject(new Error(`Looks like there was a problem getting clinic id ${options.clinicId}`))
 					return
 				}
 

@@ -23,6 +23,11 @@ function getDoctors(crd) {
 				}
 
 				res.json().then(data => {
+					if(!data) {
+						resolve([])
+						return
+					}
+
 					let clinics = data.map(clinic => {
 						return { id:clinic.id, name: clinic.name, price: clinic.price }
 					})
