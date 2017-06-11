@@ -35,10 +35,6 @@ export default class AddEmployee extends Component {
 		// TODO: autofocus only works on refresh. why?
 		document.getElementById('fname').focus()
 
-		// TODO: clean fields when routed to this form
-		// document.getElementById('fname').value
-		// document.getElementById('lname').value
-		// document.getElementById('email').value
 	}
 
 	render({user}, { errors }) {
@@ -167,7 +163,10 @@ export default class AddEmployee extends Component {
 		}
 
 		let success = data => {
-			console.log(data)
+			// clean fields
+			document.getElementById('fname').value = ''
+			document.getElementById('lname').value = ''
+			document.getElementById('email').value = ''
 			route(`/clinic/${clinicId}`)
 		}
 
