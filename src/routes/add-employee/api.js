@@ -1,15 +1,13 @@
 /*global API_HOST*/
 
 function addEmployee(employee) {
-	console.log("employee", employee)
-
 	return new Promise((resolve, reject) => {
 		const body = JSON.stringify(
 			{
 				"fname": employee.fname,
 				"lname": employee.lname,
 				"email": employee.email,
-				"clinicId": employee.clinicId,
+				"clinic_id": employee.clinicId,
 			}
 		)
 
@@ -30,7 +28,7 @@ function addEmployee(employee) {
 
     const API_HOST = process.env.NODE_ENV === 'production' ? 'https://api.healthcobot.com' : 'http://localhost:3000'
 
-		fetch(`${API_HOST}/employees`, request)
+		fetch(`${API_HOST}/clinics/${employee.clinicId}/employees`, request)
 			.then(res => {
 				// this.setState({ spinner: false })
 				if (res.status !== 200) {
