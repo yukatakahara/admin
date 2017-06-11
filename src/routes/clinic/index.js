@@ -52,6 +52,8 @@ export default class Register extends Component {
 			return
 		}
 
+		const addEmployeeURL = `/clinic/${clinic.id}/employees/new`
+
 		return (
 			<div class={style.clinic}>
 				<h1>Clinic page</h1>
@@ -77,7 +79,7 @@ export default class Register extends Component {
 				})}
 
 				<div class={style.addEmployee}>
-				<a href="/employee/new">Add Employee</a>
+				<a href={addEmployeeURL}>Add Employee</a>
 				</div>
 			</div>
 		)

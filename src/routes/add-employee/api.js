@@ -1,9 +1,16 @@
 /*global API_HOST*/
 
 function addEmployee(employee) {
+	console.log("employee", employee)
+
 	return new Promise((resolve, reject) => {
 		const body = JSON.stringify(
-			{"name": employee.name, "address1": employee.email}
+			{
+				"fname": employee.fname,
+				"lname": employee.lname,
+				"email": employee.email,
+				"clinicId": employee.clinicId,
+			}
 		)
 
 		const request = {

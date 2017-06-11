@@ -16,11 +16,24 @@ export default class AddEmployee extends Component {
 		}
 
 		this.handleSubmit = this.handleSubmit.bind(this)
+		// TODO: validate fname and lname
+		// this.handleNameKeyup = this.handleNameKeyup.bind(this)
+		this.handleEmailKeyup = this.handleEmailKeyup.bind(this)
 	}
 
 	componentDidMount() {
+
+		let jwt = localStorage.getItem('jwt')
+		let registered = localStorage.getItem('registered')
+
+		// user is not logged in
+		if (!jwt) {
+			route('/')
+			return
+		}
+
 		// TODO: autofocus only works on refresh. why?
-		document.getElementById('name').focus()
+		document.getElementById('fname').focus()
 	}
 
 	render({user}, { errors }) {
@@ -33,18 +46,34 @@ export default class AddEmployee extends Component {
 				<h1>Add Employee</h1>
 				<form id="addEmployee" onSubmit={this.handleSubmit} novalidate class={style.form}>
 
-					<label htmlFor="name">Name:</label>
+					<label htmlFor="fname">First Name:</label>
 					<input
-						class={errors.name ? style['invalid-input'] : style.email}
+						class={errors.fname ? style['invalid-input'] : style.email}
 						type="text"
-						name="name"
-						id="name"
-						data-validate="name"
+						name="fname"
+						id="fname"
+						data-validate="fname"
 						maxlength="30"
 						autofocus
 						class={style.input}
 					/>
-					<label class={style.invalid}>{errors.name}</label>
+					<label class={style.invalid}>{errors.fname}</label>
+
+					<br />
+					<br />
+
+					<label htmlFor="lname">Last Name:</label>
+					<input
+						class={errors.jname ? style['invalid-input'] : style.email}
+						type="text"
+						name="lname"
+						id="lname"
+						data-validate="lname"
+						maxlength="30"
+						autofocus
+						class={style.input}
+					/>
+					<label class={style.invalid}>{errors.lname}</label>
 
 					<br />
 					<br />
@@ -56,6 +85,7 @@ export default class AddEmployee extends Component {
 						name="email"
 						id="email"
 						data-validate="email"
+						onkeyup={this.handleEmailKeyup}
 					/>
 					<label class={style.invalid}>{errors.email}</label>
 					<br />
@@ -70,6 +100,30 @@ export default class AddEmployee extends Component {
 				</form>
 			</div>
 		)
+	}
+
+	handleEmailKeyup(event) {
+		const email = event.target.value
+
+		if (!email) {
+			return
+		}
+
+		if (this.state.submit) {
+			let errors = this.state.errors
+
+			if (!validateEmail(email)) {
+				errors = Object.assign(errors, {
+					email: 'Please provide a valid email address'
+				})
+			} else {
+				errors = Object.assign(errors, { email: '' })
+			}
+
+			this.setState({
+				errors
+			})
+		}
 	}
 
 	handleSubmit(event) {
@@ -97,9 +151,13 @@ export default class AddEmployee extends Component {
 			return
 		}
 
-		const clinic = {
-			name: document.getElementById('name').value,
+		const clinicId = this.props.clinicId
+
+		const employee = {
+			fname: document.getElementById('fname').value,
+			lname: document.getElementById('lname').value,
 			email: document.getElementById('email').value,
+			clinicId: clinicId,
 			jwt: this.props.user.jwt
 		}
 
@@ -115,13 +173,18 @@ export default class AddEmployee extends Component {
 			})
 		}
 
-		addEmployee(clinic).then(success).catch(err)
+		addEmployee(employee).then(success).catch(err)
 	}
 }
 
 const focus = errors => {
-	if (errors.name) {
-		document.getElementById('name').focus()
+	if (errors.fname) {
+		document.getElementById('fname').focus()
+		return
+	}
+
+	if (errors.lname) {
+		document.getElementById('lname').focus()
 		return
 	}
 
@@ -133,9 +196,15 @@ const focus = errors => {
 
 // object with validation methods
 const inputValidator = {
-	name(errors, data) {
+	fname(errors, data) {
 		if (!data) {
-			return Object.assign(errors, { name: 'Enter clinic name' })
+			return Object.assign(errors, { fname: 'Enter employee first name' })
+		}
+		return errors
+	},
+	lname(errors, data) {
+		if (!data) {
+			return Object.assign(errors, { lname: 'Enter employee last name' })
 		}
 		return errors
 	},
@@ -145,4 +214,9 @@ const inputValidator = {
 		}
 		return errors
 	}
+}
+
+const validateEmail = email => {
+	const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+	return re.test(email)
 }

@@ -51,7 +51,7 @@ export default class App extends Component {
 					<Home path="/" user={user} />
 					<Login path="/login" onRegister={this.setUser} />
 					<CreateClinic path="/clinic/new" user={user} />
-					<AddEmployee path="/employee/new" user={user} />
+					<AddEmployee path="/clinic/:clinicId/employees/new" user={user} />
 					<Clinic path="/clinic/:id" />
 				</Router>
 			</div>
