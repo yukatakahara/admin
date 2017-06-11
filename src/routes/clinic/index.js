@@ -32,7 +32,7 @@ export default class Register extends Component {
 
 
 		let successDoc = data => {
-			data.employees = [{name: 'Josh Belttinore', email: 'Josh_belltinore1@gmail.com'}]
+			data.employees = data.employees || []
 			this.setState({
 				user: {jwt: jwt},
 				clinic: data
@@ -63,11 +63,14 @@ export default class Register extends Component {
 				</div>
 				<br/>
 
-				<h3>Employees:</h3>
+				{clinic.employees.length !== 0 &&
+					<h3>Employees:</h3>
+				}
+
 				{clinic.employees.map(employee => {
 					return (
 						<section class={style.section}>
-							<p>{employee.name}</p>
+							<p>{employee.fname}</p>
 							<p>{employee.email}</p>
 						</section>
 					)
