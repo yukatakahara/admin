@@ -72,8 +72,15 @@ export default class Register extends Component {
 					{clinic.employees.map(employee => {
 						return (
 							<section class={style.section}>
-								<p>{employee.fname}</p>
-								<p>{employee.email}</p>
+								<div>
+									<span class={style.field}>First Name:</span> <span>{employee.fname}</span>
+								</div>
+								<div>
+									<span class={style.field}>Last Name:</span> <span>{employee.lname}</span>
+								</div>
+								<div>
+									<span class={style.field}>Email:</span> <span>{employee.email}</span>
+								</div>
 							</section>
 						)
 					})}
