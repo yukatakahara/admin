@@ -1,10 +1,10 @@
 /*global API_HOST*/
 
-import { h, Component } from 'preact'
-import { route } from 'preact-router'
-import { addEmployee } from './api'
+import { h, Component } from "preact"
+import { route } from "preact-router"
+import { addEmployee } from "./api"
 
-import style from './style'
+import style from "./style"
 
 export default class AddEmployee extends Component {
 	constructor() {
@@ -12,7 +12,7 @@ export default class AddEmployee extends Component {
 
 		this.state = {
 			/** Contains any validation errors */
-			errors: { fame: '', lname: '', email: '' }
+			errors: { fame: "", lname: "", email: "" }
 		}
 
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -22,21 +22,20 @@ export default class AddEmployee extends Component {
 	}
 
 	componentDidMount() {
-
-		let jwt = localStorage.getItem('jwt')
-		let registered = localStorage.getItem('registered')
+		let jwt = localStorage.getItem("jwt")
+		let registered = localStorage.getItem("registered")
 
 		// user is not logged in
 		if (!jwt) {
-			route('/')
+			route("/")
 			return
 		}
 
 		// TODO: autofocus only works on refresh. why?
-		document.getElementById('fname').focus()
+		document.getElementById("fname").focus()
 	}
 
-	render({user}, { errors }) {
+	render({ user }, { errors }) {
 		if (!user.jwt) {
 			return
 		}
@@ -44,11 +43,16 @@ export default class AddEmployee extends Component {
 		return (
 			<div class={style.login}>
 				<h1>Add Employee</h1>
-				<form id="addEmployee" onSubmit={this.handleSubmit} novalidate class={style.form}>
+				<form
+					id="addEmployee"
+					onSubmit={this.handleSubmit}
+					novalidate
+					class={style.form}
+				>
 
 					<label htmlFor="fname">First Name:</label>
 					<input
-						class={errors.fname ? style['invalid-input'] : style.email}
+						class={errors.fname ? style["invalid-input"] : style.email}
 						type="text"
 						name="fname"
 						id="fname"
@@ -65,7 +69,7 @@ export default class AddEmployee extends Component {
 
 					<label htmlFor="lname">Last Name:</label>
 					<input
-						class={errors.jname ? style['invalid-input'] : style.email}
+						class={errors.jname ? style["invalid-input"] : style.email}
 						type="text"
 						name="lname"
 						id="lname"
@@ -82,7 +86,7 @@ export default class AddEmployee extends Component {
 
 					<label htmlFor="email">Email:</label>
 					<input
-						class={errors.email ? style['invalid-input'] : style.password}
+						class={errors.email ? style["invalid-input"] : style.password}
 						type="text"
 						name="email"
 						id="email"
@@ -94,11 +98,11 @@ export default class AddEmployee extends Component {
 					<br />
 
 					<button class={style.button}>Add Employee</button>
-					<label class={style.invalid + ' ' + style.apiError}>{errors.api}</label>
-					{this.state.spinner &&
-						<div class={style.loader}></div>
-					}
-					<div class={style.clear}></div>
+					<label class={style.invalid + " " + style.apiError}>
+						{errors.api}
+					</label>
+					{this.state.spinner && <div class={style.loader} />}
+					<div class={style.clear} />
 				</form>
 			</div>
 		)
@@ -149,10 +153,10 @@ export default class AddEmployee extends Component {
 	handleSubmit(event) {
 		event.preventDefault()
 
-		this.setState({ errors: {}})
+		this.setState({ errors: {} })
 		let errors = {}
 
-		const elements = document.getElementById('addEmployee').elements
+		const elements = document.getElementById("addEmployee").elements
 
 		Array.prototype.forEach.call(elements, element => {
 			const validateName = element.dataset.validate
@@ -174,9 +178,9 @@ export default class AddEmployee extends Component {
 		const clinicId = this.props.clinicId
 
 		const employee = {
-			fname: document.getElementById('fname').value,
-			lname: document.getElementById('lname').value,
-			email: document.getElementById('email').value,
+			fname: document.getElementById("fname").value,
+			lname: document.getElementById("lname").value,
+			email: document.getElementById("email").value,
 			clinicId: clinicId,
 			jwt: this.props.user.jwt
 		}
@@ -184,9 +188,9 @@ export default class AddEmployee extends Component {
 		let success = data => {
 			this.setState({ errors: {}, spinner: false })
 			// clean fields
-			document.getElementById('fname').value = ''
-			document.getElementById('lname').value = ''
-			document.getElementById('email').value = ''
+			document.getElementById("fname").value = ""
+			document.getElementById("lname").value = ""
+			document.getElementById("email").value = ""
 
 			route(`/clinic/${clinicId}`)
 		}
@@ -205,17 +209,17 @@ export default class AddEmployee extends Component {
 
 const focus = errors => {
 	if (errors.fname) {
-		document.getElementById('fname').focus()
+		document.getElementById("fname").focus()
 		return
 	}
 
 	if (errors.lname) {
-		document.getElementById('lname').focus()
+		document.getElementById("lname").focus()
 		return
 	}
 
 	if (errors.email) {
-		document.getElementById('email').focus()
+		document.getElementById("email").focus()
 		return
 	}
 }
@@ -224,11 +228,13 @@ const focus = errors => {
 const inputValidator = {
 	fname(errors, data) {
 		if (!data) {
-			return Object.assign(errors, { fname: 'Enter employee first name' })
+			return Object.assign(errors, { fname: "Enter employee first name" })
 		}
 
 		if (data.length < 2) {
-			return Object.assign(errors, { fname: 'First name should be at least 2 characters' })
+			return Object.assign(errors, {
+				fname: "First name should be at least 2 characters"
+			})
 		}
 
 		delete errors.fname
@@ -236,11 +242,13 @@ const inputValidator = {
 	},
 	lname(errors, data) {
 		if (!data) {
-			return Object.assign(errors, { lname: 'Enter employee last name' })
+			return Object.assign(errors, { lname: "Enter employee last name" })
 		}
 
 		if (data.length < 2) {
-			return Object.assign(errors, { lname: 'Last name should be at least 2 characters' })
+			return Object.assign(errors, {
+				lname: "Last name should be at least 2 characters"
+			})
 		}
 
 		delete errors.lname
@@ -248,11 +256,13 @@ const inputValidator = {
 	},
 	email(errors, data) {
 		if (!data) {
-			return Object.assign(errors, { email: 'Enter employee email' })
+			return Object.assign(errors, { email: "Enter employee email" })
 		}
 
 		if (!validateEmail(data)) {
-			return Object.assign(errors, { email: 'Please provide a valid email address' })
+			return Object.assign(errors, {
+				email: "Please provide a valid email address"
+			})
 		}
 
 		return errors

@@ -1,6 +1,6 @@
-import { h, Component } from 'preact'
-import { Link, route } from 'preact-router'
-import style from './style'
+import { h, Component } from "preact"
+import { Link, route } from "preact-router"
+import style from "./style"
 
 export default class Header extends Component {
 	constructor() {
@@ -32,8 +32,8 @@ export default class Header extends Component {
 
 	handleLogoutClick(event) {
 		event.preventDefault()
-		localStorage.removeItem('jwt')
-		this.props.onLogout({ user: { jwt: '' } })
-		route('/')
+		localStorage.removeItem("jwt")
+		this.props.onLogout({ user: { jwt: "" } })
+		route("/")
 	}
 }

@@ -1,2 +1,5 @@
-
 # admin
+
+```
+npm run pretty
+```

@@ -1,7 +1,7 @@
-import { h, Component } from 'preact'
-import style from './style'
-import { getLocation } from '../../lib/location'
-import { getDoctors } from './api'
+import { h, Component } from "preact"
+import style from "./style"
+import { getLocation } from "../../lib/location"
+import { getDoctors } from "./api"
 
 export default class Profile extends Component {
 	constructor() {
@@ -12,18 +12,18 @@ export default class Profile extends Component {
 		this.state = {
 			count: 0,
 			clinics: [],
-			user: { jwt: '' }
+			user: { jwt: "" }
 		}
 	}
 
 	componentDidMount() {
 		// check localStorage for jwt (user logged-in)
-		let jwt = localStorage.getItem('jwt')
-		let registered = localStorage.getItem('registered')
+		let jwt = localStorage.getItem("jwt")
+		let registered = localStorage.getItem("registered")
 
 		// user is not logged in - don't show anything
 		if (!jwt) {
-			this.state.user.jwt = ''
+			this.state.user.jwt = ""
 			return
 		}
 
@@ -44,10 +44,12 @@ export default class Profile extends Component {
 		}
 
 		// getLocation().then(getDoctors).then(successDoc).catch(errDoc);
-		getDoctors({ lat: '1', lon: '1', jwt: this.state.user.jwt }).then(successDoc).catch(errDoc)
+		getDoctors({ lat: "1", lon: "1", jwt: this.state.user.jwt })
+			.then(successDoc)
+			.catch(errDoc)
 	}
 
-	render({user}, {clinics}) {
+	render({ user }, { clinics }) {
 		if (!user.jwt) {
 			return
 		}
@@ -55,16 +57,18 @@ export default class Profile extends Component {
 		return (
 			<div class={style.home}>
 				<div class={style.createClinic}>
-				<a href="/clinic/new">Create Clinic</a>
+					<a href="/clinic/new">Create Clinic</a>
 				</div>
 
 				<h1>Clinics</h1>
 				{clinics.map(clinic => {
 					return (
 						<section>
-							<a href={"/clinic/" + clinic.id} onClick={this.clickClinic}>{clinic.name}</a>
-							{' '}
-							{' '}
+							<a href={"/clinic/" + clinic.id} onClick={this.clickClinic}>
+								{clinic.name}
+							</a>
+							{" "}
+							{" "}
 						</section>
 					)
 				})}

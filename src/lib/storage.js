@@ -1,7 +1,7 @@
-let storage = { getItem: () => {}, setItem: () => {} };
+let storage = { getItem: () => {}, setItem: () => {} }
 
-if (typeof localStorage==='object') {
-  storage = localStorage;
+if (typeof localStorage === "object") {
+	storage = localStorage
 }
 
-export default storage;
+export default storage

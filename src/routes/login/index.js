@@ -1,9 +1,9 @@
 /*global API_HOST*/
 
-import { h, Component } from 'preact'
-import { route } from 'preact-router'
+import { h, Component } from "preact"
+import { route } from "preact-router"
 
-import style from './style'
+import style from "./style"
 
 export default class Register extends Component {
 	constructor() {
@@ -11,7 +11,7 @@ export default class Register extends Component {
 
 		this.state = {
 			/** Contains any validation errors */
-			errors: { email: '' }
+			errors: { email: "" }
 		}
 
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -21,18 +21,23 @@ export default class Register extends Component {
 
 	componentDidMount() {
 		// TODO: autofocus only works on refresh. why?
-		document.getElementById('email').focus()
+		document.getElementById("email").focus()
 	}
 
 	render({ onRegister }, { errors }) {
 		return (
 			<div class={style.login}>
 				<h1>Login to your account.</h1>
-				<form id="login" onSubmit={this.handleSubmit} novalidate class={style.form}>
+				<form
+					id="login"
+					onSubmit={this.handleSubmit}
+					novalidate
+					class={style.form}
+				>
 
 					<label htmlFor="email">Email:</label>
 					<input
-						class={errors.email ? style['invalid-input'] : style.email}
+						class={errors.email ? style["invalid-input"] : style.email}
 						type="email"
 						name="email"
 						id="email"
@@ -49,7 +54,7 @@ export default class Register extends Component {
 
 					<label htmlFor="password">Password:</label>
 					<input
-						class={errors.password ? style['invalid-input'] : style.password}
+						class={errors.password ? style["invalid-input"] : style.password}
 						type="password"
 						name="password"
 						id="password"
@@ -61,11 +66,11 @@ export default class Register extends Component {
 					<br />
 
 					<button class={style.button}>LOG IN</button>
-					<label class={style.invalid + " " + style.apiError}>{errors.api}</label>
-					{this.state.spinner &&
-						<div class={style.loader}></div>
-					}
-					<div class={style.clear}></div>
+					<label class={style.invalid + " " + style.apiError}>
+						{errors.api}
+					</label>
+					{this.state.spinner && <div class={style.loader} />}
+					<div class={style.clear} />
 				</form>
 			</div>
 		)
@@ -83,10 +88,10 @@ export default class Register extends Component {
 
 			if (!validatePassword(password)) {
 				errors = Object.assign(errors, {
-					password: 'Password should be at least 6 characters'
+					password: "Password should be at least 6 characters"
 				})
 			} else {
-				errors = Object.assign(errors, { password: '' })
+				errors = Object.assign(errors, { password: "" })
 			}
 
 			this.setState({
@@ -107,10 +112,10 @@ export default class Register extends Component {
 
 			if (!validateEmail(email)) {
 				errors = Object.assign(errors, {
-					email: 'Please provide a valid email address'
+					email: "Please provide a valid email address"
 				})
 			} else {
-				errors = Object.assign(errors, { email: '' })
+				errors = Object.assign(errors, { email: "" })
 			}
 
 			this.setState({
@@ -125,7 +130,7 @@ export default class Register extends Component {
 		this.setState({ errors: {}, spinner: false })
 		let errors = {}
 
-		const elements = document.getElementById('login').elements
+		const elements = document.getElementById("login").elements
 
 		Array.prototype.forEach.call(elements, element => {
 			const validateName = element.dataset.validate
@@ -144,71 +149,71 @@ export default class Register extends Component {
 			return
 		}
 
-		const email = document.getElementById('email').value
-		const password = document.getElementById('password').value
+		const email = document.getElementById("email").value
+		const password = document.getElementById("password").value
 
 		this.registerAPI(email, password)
 	}
 
 	registerAPI(email, password) {
-		const body = JSON.stringify(
-			{"email": email, "password": password}
-		)
+		const body = JSON.stringify({ email: email, password: password })
 
 		const request = {
-			mode: 'cors',
-			method: 'POST',
+			mode: "cors",
+			method: "POST",
 			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json'
+				Accept: "application/json",
+				"Content-Type": "application/json"
 			},
 			body
 		}
 
-		const t0 = performance.now();
+		const t0 = performance.now()
 
 		this.setState({ spinner: true })
 
-    const API_HOST = process.env.NODE_ENV === 'production' ? 'https://api.healthcobot.com' : 'http://localhost:3000'
+		const API_HOST = process.env.NODE_ENV === "production"
+			? "https://api.healthcobot.com"
+			: "http://localhost:3000"
 
 		fetch(`${API_HOST}/adminlogin`, request)
 			.then(res => {
 				this.setState({ spinner: false })
 				if (res.status !== 200) {
 					console.log(
-						'Looks like there was a problem. Status Code: ' + res.status
+						"Looks like there was a problem. Status Code: " + res.status
 					)
 					console.log(res)
 
-					this.setState({ errors: { api: 'Failed to login' } })
+					this.setState({ errors: { api: "Failed to login" } })
 					return
 				}
 
 				res.json().then(data => {
-					const t1 = performance.now();
+					const t1 = performance.now()
 					console.log("Login call took " + (t1 - t0) + " milliseconds.")
 
-					localStorage.setItem('jwt', data.jwt)
-					localStorage.setItem('registered', true)
+					localStorage.setItem("jwt", data.jwt)
+					localStorage.setItem("registered", true)
 					this.props.onRegister({ user: { jwt: data.jwt } })
-					route('/')
+					route("/")
 					return
 				})
 			})
 			.catch(err => {
-				this.setState({ errors: { api: 'Failed to login' }, spinner: false })
+				this.setState({ errors: { api: "Failed to login" }, spinner: false })
 			})
 	}
 }
 
 const focus = errors => {
 	if (errors.email) {
-		document.getElementById('email').focus()
+		document.getElementById("email").focus()
 		return
 	}
 
 	if (errors.password) {
-		document.getElementById('password').focus()
+		document.getElementById("password").focus()
 		return
 	}
 }
@@ -217,22 +222,22 @@ const focus = errors => {
 const inputValidator = {
 	email(errors, data) {
 		if (!data) {
-			return Object.assign(errors, { email: 'Enter your email' })
+			return Object.assign(errors, { email: "Enter your email" })
 		}
 		if (!validateEmail(data)) {
 			return Object.assign(errors, {
-				email: 'Please provide a valid email address'
+				email: "Please provide a valid email address"
 			})
 		}
 		return errors
 	},
 	password(errors, data) {
 		if (!data) {
-			return Object.assign(errors, { password: 'Enter your password' })
+			return Object.assign(errors, { password: "Enter your password" })
 		}
 		if (!validatePassword(data)) {
 			return Object.assign(errors, {
-				password: 'Password should be at least 6 characters'
+				password: "Password should be at least 6 characters"
 			})
 		}
 		return errors

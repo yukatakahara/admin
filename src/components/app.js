@@ -1,13 +1,13 @@
-import { h, Component } from 'preact'
-import { Router } from 'preact-router'
-import localStorage from '../lib/storage';
+import { h, Component } from "preact"
+import { Router } from "preact-router"
+import localStorage from "../lib/storage"
 
-import Header from './header'
-import Home from '../routes/home'
-import Login from '../routes/login'
-import Clinic from '../routes/clinic'
-import CreateClinic from '../routes/create-clinic'
-import AddEmployee from '../routes/add-employee'
+import Header from "./header"
+import Home from "../routes/home"
+import Login from "../routes/login"
+import Clinic from "../routes/clinic"
+import CreateClinic from "../routes/create-clinic"
+import AddEmployee from "../routes/add-employee"
 
 export default class App extends Component {
 	constructor() {
@@ -15,7 +15,7 @@ export default class App extends Component {
 
 		this.state = {
 			/** Contains the user object */
-			user: { jwt: '' }
+			user: { jwt: "" }
 		}
 	}
 
@@ -29,8 +29,8 @@ export default class App extends Component {
 
 	componentWillMount() {
 		// check localStorage for jwt (user logged-in)
-		let jwt = localStorage.getItem('jwt')
-		let registered = localStorage.getItem('registered')
+		let jwt = localStorage.getItem("jwt")
+		let registered = localStorage.getItem("registered")
 
 		if (jwt) {
 			// show success message if we just registered (not all the time)
@@ -38,7 +38,7 @@ export default class App extends Component {
 			return
 		}
 
-		this.state.user.jwt = ''
+		this.state.user.jwt = ""
 	}
 
 	setUser = user => this.setState(user)
@@ -58,4 +58,3 @@ export default class App extends Component {
 		)
 	}
 }
-
