@@ -12,12 +12,12 @@ export default class AddEmployee extends Component {
 
 		this.state = {
 			/** Contains any validation errors */
-			errors: { name: '' }
+			errors: { fame: '', lname: '', email: '' }
 		}
 
 		this.handleSubmit = this.handleSubmit.bind(this)
-		// TODO: validate fname and lname
-		// this.handleNameKeyup = this.handleNameKeyup.bind(this)
+		this.handleNameKeyup = this.handleNameKeyup.bind(this)
+		this.handleLameKeyup = this.handleLameKeyup.bind(this)
 		this.handleEmailKeyup = this.handleEmailKeyup.bind(this)
 	}
 
@@ -34,7 +34,6 @@ export default class AddEmployee extends Component {
 
 		// TODO: autofocus only works on refresh. why?
 		document.getElementById('fname').focus()
-
 	}
 
 	render({user}, { errors }) {
@@ -54,6 +53,7 @@ export default class AddEmployee extends Component {
 						name="fname"
 						id="fname"
 						data-validate="fname"
+						onkeyup={this.handleNameKeyup}
 						maxlength="30"
 						autofocus
 						class={style.input}
@@ -70,6 +70,7 @@ export default class AddEmployee extends Component {
 						name="lname"
 						id="lname"
 						data-validate="lname"
+						onkeyup={this.handleLameKeyup}
 						maxlength="30"
 						autofocus
 						class={style.input}
@@ -103,26 +104,44 @@ export default class AddEmployee extends Component {
 		)
 	}
 
-	handleEmailKeyup(event) {
-		const email = event.target.value
-
-		if (!email) {
-			return
-		}
+	handleNameKeyup(event) {
+		const fname = event.target.value
 
 		if (this.state.submit) {
 			let errors = this.state.errors
-
-			if (!validateEmail(email)) {
-				errors = Object.assign(errors, {
-					email: 'Please provide a valid email address'
-				})
-			} else {
-				errors = Object.assign(errors, { email: '' })
-			}
+			errors = inputValidator.fname(errors, fname)
 
 			this.setState({
-				errors
+				errors,
+				submit: true
+			})
+		}
+	}
+
+	handleLameKeyup(event) {
+		const lname = event.target.value
+
+		if (this.state.submit) {
+			let errors = this.state.errors
+			errors = inputValidator.lname(errors, lname)
+
+			this.setState({
+				errors,
+				submit: true
+			})
+		}
+	}
+
+	handleEmailKeyup(event) {
+		const email = event.target.value
+
+		if (this.state.submit) {
+			let errors = this.state.errors
+			errors = inputValidator.email(errors, lname)
+
+			this.setState({
+				errors,
+				submit: true
 			})
 		}
 	}
@@ -167,6 +186,7 @@ export default class AddEmployee extends Component {
 			document.getElementById('fname').value = ''
 			document.getElementById('lname').value = ''
 			document.getElementById('email').value = ''
+
 			route(`/clinic/${clinicId}`)
 		}
 
@@ -204,18 +224,35 @@ const inputValidator = {
 		if (!data) {
 			return Object.assign(errors, { fname: 'Enter employee first name' })
 		}
+
+		if (data.length < 2) {
+			return Object.assign(errors, { fname: 'First name should be at least 2 characters' })
+		}
+
+		delete errors.fname
 		return errors
 	},
 	lname(errors, data) {
 		if (!data) {
 			return Object.assign(errors, { lname: 'Enter employee last name' })
 		}
+
+		if (data.length < 2) {
+			return Object.assign(errors, { lname: 'Last name should be at least 2 characters' })
+		}
+
+		delete errors.lname
 		return errors
 	},
 	email(errors, data) {
 		if (!data) {
 			return Object.assign(errors, { email: 'Enter employee email' })
 		}
+
+		if (!validateEmail(data)) {
+			return Object.assign(errors, { email: 'Please provide a valid email address' })
+		}
+
 		return errors
 	}
 }
