@@ -15,8 +15,11 @@ export default class Register extends Component {
 			/** Contains any validation errors */
 			user: { jwt: "" },
 			errors: { email: "" },
-			clinic: { employees: [] }
+			clinic: { employees: [] },
+			editHours: false
 		}
+
+		this.handleEditHours = this.handleEditHours.bind(this)
 	}
 
 	componentDidMount() {
@@ -47,12 +50,32 @@ export default class Register extends Component {
 		getClinic({ jwt, clinicId }).then(successDoc).catch(errDoc)
 	}
 
-	render({}, { user, errors, clinic }) {
+	render({}, { user, errors, clinic, editHours }) {
 		if (!user.jwt) {
 			return
 		}
 
 		const addEmployeeURL = `/clinic/${clinic.id}/employees/new`
+
+		let hours =
+					<div>
+						<span class={style.field}>Mon:</span> <span>8-12</span><span>, 13-15</span><span>, 15:30-19</span>
+					</div>
+		if (editHours) {
+			hours = <div>
+				<span class={style.field}>Mon: </span>
+				<select name="select">
+					<option value="value1">Value 1</option>
+					<option value="value2" selected>Value 2</option>
+					<option value="value3">Value 3</option>
+				</select>
+				<select name="select">
+					<option value="value1">Value 1</option>
+					<option value="value2" selected>Value 2</option>
+					<option value="value3">Value 3</option>
+				</select>
+				</div>
+		}
 
 		return (
 			<div class={style.clinic}>
@@ -91,11 +114,10 @@ export default class Register extends Component {
 				</section>
 
 				<h3 class={style.h3}>Operating Hours</h3>
-				<IconEdit size="20" class={style.edit} />
+				<IconEdit size="24" class={style.edit} onClick={this.handleEditHours} />
+
 				<section class={style.section}>
-					<div>
-						<span class={style.field}>Mon:</span> <span>8-12</span><span>, 13-15</span><span>, 15:30-19</span>
-					</div>
+					{hours}
 					<div>
 						<span class={style.field}>Tue:</span> <span>8-12</span><span>, 13-15</span>
 					</div>
@@ -167,4 +189,14 @@ export default class Register extends Component {
 			</div>
 		)
 	}
+
+	handleEditHours(event) {
+		event.preventDefault()
+
+		this.setState({
+			clinic: { employees: [] },
+			editHours: true
+		})
+	}
+
 }
