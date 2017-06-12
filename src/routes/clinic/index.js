@@ -65,6 +65,9 @@ export default class Register extends Component {
 				</div>
 				<br/>
 
+				<div class={style.addEmployee}>
+				<a href={addEmployeeURL}>Add Employee</a>
+
 				{clinic.employees.length !== 0 &&
 					<h3>Employees:</h3>
 				}
@@ -78,8 +81,6 @@ export default class Register extends Component {
 					)
 				})}
 
-				<div class={style.addEmployee}>
-				<a href={addEmployeeURL}>Add Employee</a>
 				</div>
 			</div>
 		)
