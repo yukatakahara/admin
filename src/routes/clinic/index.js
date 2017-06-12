@@ -90,9 +90,8 @@ export default class Register extends Component {
 					</div>
 				</section>
 
-				{IconEdit}
-
 				<h3 class={style.h3}>Operating Hours</h3>
+				<IconEdit size="20" class={style.edit} />
 				<section class={style.section}>
 					<div>
 						<span class={style.field}>Mon:</span> <span>8-12</span><span>, 13-15</span><span>, 15:30-19</span>
