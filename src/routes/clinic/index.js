@@ -3,8 +3,7 @@
 import { h, Component } from "preact"
 import { route } from "preact-router"
 import { getClinic } from "./api"
-import { IconEdit } from "../icons/edit"
-
+import IconEdit from "../icons/edit"
 
 import style from "./style"
 
@@ -91,9 +90,9 @@ export default class Register extends Component {
 					</div>
 				</section>
 
+				{IconEdit}
 
 				<h3 class={style.h3}>Operating Hours</h3>
-				{IconEdit}
 				<section class={style.section}>
 					<div>
 						<span class={style.field}>Mon:</span> <span>8-12</span><span>, 13-15</span><span>, 15:30-19</span>
