@@ -56,13 +56,14 @@ export default class Register extends Component {
 		return (
 			<div class={style.clinic}>
 				<h1>Clinic page</h1>
-				<div class={style.section}>
-					<label>Name:</label>
-					<p>{clinic.name}</p>
-					<label>Address1:</label>
-					<p>{clinic.address1}</p>
-				</div>
-				<br />
+				<section class={style.section}>
+					<div>
+						<span class={style.field}>Name:</span> <span>{clinic.name}</span>
+					</div>
+					<div>
+						<span class={style.field}>Address1:</span> <span>{clinic.address1}</span>
+					</div>
+				</section>
 
 				<div class={style.addEmployee}>
 					<a href={addEmployeeURL}>Add Employee</a>
