@@ -3,6 +3,8 @@
 import { h, Component } from "preact"
 import { route } from "preact-router"
 import { getClinic } from "./api"
+import { IconEdit } from "../icons/edit"
+
 
 import style from "./style"
 
@@ -63,12 +65,89 @@ export default class Register extends Component {
 					<div>
 						<span class={style.field}>Address1:</span> <span>{clinic.address1}</span>
 					</div>
+					<div>
+						<span class={style.field}>Address2:</span> <span>#07-05/06 CONNEXION</span>
+					</div>
+					<div>
+						<span class={style.field}>Address City:</span> <span>Singapore</span>
+					</div>
+					<div>
+						<span class={style.field}>Address Zip Code:</span> <span>217562</span>
+					</div>
+					<div>
+						<span class={style.field}>Address Country:</span> <span>Singapore</span>
+					</div>
+					<div class={style.phone}>
+						<span class={style.field}>Phone:</span> <span>+65 6511 9300</span>
+					</div>
+					<div>
+						<span class={style.field}>Email:</span> <span>hello@nichii-icl.com</span>
+					</div>
+					<div>
+						<span class={style.field}>Website:</span> <span>nichii-icl.com</span>
+					</div>
+					<div class={style.phone}>
+						<span class={style.field}>Fee:</span> <span>$30.00</span>
+					</div>
+				</section>
+
+
+				<h3 class={style.h3}>Operating Hours</h3>
+				{IconEdit}
+				<section class={style.section}>
+					<div>
+						<span class={style.field}>Mon:</span> <span>8-12</span><span>, 13-15</span><span>, 15:30-19</span>
+					</div>
+					<div>
+						<span class={style.field}>Tue:</span> <span>8-12</span><span>, 13-15</span>
+					</div>
+					<div>
+						<span class={style.field}>Wed:</span> <span>8-12</span><span>, 13-15</span>
+					</div>
+					<div>
+						<span class={style.field}>Thu:</span> <span>8-12</span><span>, 13-15</span><span>, 15:30-19</span>
+					</div>
+					<div>
+						<span class={style.field}>Fri:</span> <span>8-12</span><span>, 13-15</span>
+					</div>
+					<div>
+						<span class={style.field}>Sat:</span> <span>8-12</span>
+					</div>
+					<div>
+						<span class={style.field}>Sun:</span> <span>Close</span>
+					</div>
+				</section>
+
+				<h3 class={style.h3}>Auto-bid Defaults</h3>
+				<section class={style.section}>
+					<div>
+						<span class={style.field}>Toggle:</span> <span>On</span>
+					</div>
+					<div>
+						<span class={style.field}>Delay:</span> <span>1 hour</span>
+					</div>
+					<div>
+						<span class={style.field}>Max Patients/Hour:</span> <span>1</span>
+					</div>
+				</section>
+
+				<h3 class={style.h3}>Insurance</h3>
+				<section class={style.section}>
+					<div>
+						<span>GE ClinicOne</span>
+					</div>
+					<div>
+						<span>AIA</span>
+					</div>
+					<div>
+						<span>Aviva Gold</span>
+					</div>
 				</section>
 
 				<div class={style.addEmployee}>
 					<a href={addEmployeeURL}>Add Employee</a>
 
-					{clinic.employees.length !== 0 && <h3>Employees:</h3>}
+					{clinic.employees.length !== 0 && <h3 class={style.h3}>Employees</h3>}
 
 					{clinic.employees.map(employee => {
 						return (
