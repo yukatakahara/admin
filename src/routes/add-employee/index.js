@@ -149,7 +149,7 @@ export default class AddEmployee extends Component {
 	handleSubmit(event) {
 		event.preventDefault()
 
-		this.setState({ errors: {}, spinner: false })
+		this.setState({ errors: {}})
 		let errors = {}
 
 		const elements = document.getElementById('addEmployee').elements
@@ -182,6 +182,7 @@ export default class AddEmployee extends Component {
 		}
 
 		let success = data => {
+			this.setState({ errors: {}, spinner: false })
 			// clean fields
 			document.getElementById('fname').value = ''
 			document.getElementById('lname').value = ''
@@ -197,6 +198,7 @@ export default class AddEmployee extends Component {
 			})
 		}
 
+		this.setState({ errors: {}, spinner: true })
 		addEmployee(employee).then(success).catch(err)
 	}
 }

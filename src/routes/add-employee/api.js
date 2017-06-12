@@ -24,13 +24,10 @@ function addEmployee(employee) {
 
 		const t0 = performance.now();
 
-		// this.setState({ spinner: true })
-
     const API_HOST = process.env.NODE_ENV === 'production' ? 'https://api.healthcobot.com' : 'http://localhost:3000'
 
 		fetch(`${API_HOST}/clinics/${employee.clinicId}/employees`, request)
 			.then(res => {
-				// this.setState({ spinner: false })
 				if (res.status !== 200) {
 					console.error(
 						'Looks like there was a problem. Status Code: ' + res.status
