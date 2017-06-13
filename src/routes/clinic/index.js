@@ -57,24 +57,28 @@ export default class Register extends Component {
 
 		const addEmployeeURL = `/clinic/${clinic.id}/employees/new`
 
-		let hours =
-					<div>
-						<span class={style.field}>Mon:</span> <span>8-12</span><span>, 13-15</span><span>, 15:30-19</span>
-					</div>
+		let hours = (
+			<div>
+				<span class={style.field}>Mon:</span> <span>8-12</span>
+				<span>, 13-15</span><span>, 15:30-19</span>
+			</div>
+		)
 		if (editHours) {
-			hours = <div>
-				<span class={style.field}>Mon: </span>
-				<select name="select">
-					<option value="value1">Value 1</option>
-					<option value="value2" selected>Value 2</option>
-					<option value="value3">Value 3</option>
-				</select>
-				<select name="select">
-					<option value="value1">Value 1</option>
-					<option value="value2" selected>Value 2</option>
-					<option value="value3">Value 3</option>
-				</select>
+			hours = (
+				<div>
+					<span class={style.field}>Mon: </span>
+					<select name="select">
+						<option value="value1">Value 1</option>
+						<option value="value2" selected>Value 2</option>
+						<option value="value3">Value 3</option>
+					</select>
+					<select name="select">
+						<option value="value1">Value 1</option>
+						<option value="value2" selected>Value 2</option>
+						<option value="value3">Value 3</option>
+					</select>
 				</div>
+			)
 		}
 
 		return (
@@ -85,28 +89,35 @@ export default class Register extends Component {
 						<span class={style.field}>Name:</span> <span>{clinic.name}</span>
 					</div>
 					<div>
-						<span class={style.field}>Address1:</span> <span>{clinic.address1}</span>
+						<span class={style.field}>Address1:</span>{" "}
+						<span>{clinic.address1}</span>
 					</div>
 					<div>
-						<span class={style.field}>Address2:</span> <span>#07-05/06 CONNEXION</span>
+						<span class={style.field}>Address2:</span>{" "}
+						<span>#07-05/06 CONNEXION</span>
 					</div>
 					<div>
-						<span class={style.field}>Address City:</span> <span>Singapore</span>
+						<span class={style.field}>Address City:</span>{" "}
+						<span>Singapore</span>
 					</div>
 					<div>
-						<span class={style.field}>Address Zip Code:</span> <span>217562</span>
+						<span class={style.field}>Address Zip Code:</span>{" "}
+						<span>217562</span>
 					</div>
 					<div>
-						<span class={style.field}>Address Country:</span> <span>Singapore</span>
+						<span class={style.field}>Address Country:</span>{" "}
+						<span>Singapore</span>
 					</div>
 					<div class={style.phone}>
 						<span class={style.field}>Phone:</span> <span>+65 6511 9300</span>
 					</div>
 					<div>
-						<span class={style.field}>Email:</span> <span>hello@nichii-icl.com</span>
+						<span class={style.field}>Email:</span>{" "}
+						<span>hello@nichii-icl.com</span>
 					</div>
 					<div>
-						<span class={style.field}>Website:</span> <span>nichii-icl.com</span>
+						<span class={style.field}>Website:</span>{" "}
+						<span>nichii-icl.com</span>
 					</div>
 					<div class={style.phone}>
 						<span class={style.field}>Fee:</span> <span>$30.00</span>
@@ -119,16 +130,20 @@ export default class Register extends Component {
 				<section class={style.section}>
 					{hours}
 					<div>
-						<span class={style.field}>Tue:</span> <span>8-12</span><span>, 13-15</span>
+						<span class={style.field}>Tue:</span> <span>8-12</span>
+						<span>, 13-15</span>
 					</div>
 					<div>
-						<span class={style.field}>Wed:</span> <span>8-12</span><span>, 13-15</span>
+						<span class={style.field}>Wed:</span> <span>8-12</span>
+						<span>, 13-15</span>
 					</div>
 					<div>
-						<span class={style.field}>Thu:</span> <span>8-12</span><span>, 13-15</span><span>, 15:30-19</span>
+						<span class={style.field}>Thu:</span> <span>8-12</span>
+						<span>, 13-15</span><span>, 15:30-19</span>
 					</div>
 					<div>
-						<span class={style.field}>Fri:</span> <span>8-12</span><span>, 13-15</span>
+						<span class={style.field}>Fri:</span> <span>8-12</span>
+						<span>, 13-15</span>
 					</div>
 					<div>
 						<span class={style.field}>Sat:</span> <span>8-12</span>
@@ -173,13 +188,16 @@ export default class Register extends Component {
 						return (
 							<section class={style.section}>
 								<div>
-									<span class={style.field}>First Name:</span> <span>{employee.fname}</span>
+									<span class={style.field}>First Name:</span>{" "}
+									<span>{employee.fname}</span>
 								</div>
 								<div>
-									<span class={style.field}>Last Name:</span> <span>{employee.lname}</span>
+									<span class={style.field}>Last Name:</span>{" "}
+									<span>{employee.lname}</span>
 								</div>
 								<div>
-									<span class={style.field}>Email:</span> <span>{employee.email}</span>
+									<span class={style.field}>Email:</span>{" "}
+									<span>{employee.email}</span>
 								</div>
 							</section>
 						)
@@ -198,5 +216,4 @@ export default class Register extends Component {
 			editHours: true
 		})
 	}
-
 }
