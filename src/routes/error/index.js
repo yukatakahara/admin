@@ -4,5 +4,9 @@ import { route } from "preact-router"
 import style from "./style"
 
 export default function Error() {
-	route('/')
+	setTimeout(() => { route('/') }, 0)
+
+	return (
+		<div></div>
+	)
 }
