@@ -18,9 +18,9 @@
     "extends": "eslint-config-synacor"
   },
   "devDependencies": {
-    "eslint": "^3.19.0",
+    "eslint": "^4.0.0",
     "if-env": "^1.0.0",
-    "preact-cli": "^1.0.1",
+    "preact-cli": "^1.1.2",
     "prettier": "^1.4.4"
   },
   "dependencies": {
