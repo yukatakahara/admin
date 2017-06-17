@@ -3,7 +3,7 @@
 import { h, Component } from "preact"
 import { route } from "preact-router"
 import { getClinic } from "./api"
-import IconEdit from "../icons/edit"
+import OperatingHours from "../../components/operating-hours"
 
 import style from "./style"
 
@@ -19,7 +19,7 @@ export default class Register extends Component {
 			editHours: false
 		}
 
-		this.handleEditHours = this.handleEditHours.bind(this)
+		// this.handleEditHours = this.handleEditHours.bind(this)
 	}
 
 	componentDidMount() {
@@ -68,14 +68,39 @@ export default class Register extends Component {
 				<div>
 					<span class={style.field}>Mon: </span>
 					<select name="select">
-						<option value="value1">Value 1</option>
-						<option value="value2" selected>Value 2</option>
-						<option value="value3">Value 3</option>
+						<option value="7">7</option>
+						<option value="8" selected>8</option>
+						<option value="9">9</option>
 					</select>
+				<span> - </span>
 					<select name="select">
-						<option value="value1">Value 1</option>
-						<option value="value2" selected>Value 2</option>
-						<option value="value3">Value 3</option>
+						<option value="11">11</option>
+						<option value="12" selected>12</option>
+						<option value="13">13</option>
+					</select>
+				<span>, </span>
+					<select name="select">
+						<option value="12">12</option>
+						<option value="13" selected>13</option>
+						<option value="14">14</option>
+					</select>
+				<span> - </span>
+					<select name="select">
+						<option value="14">14</option>
+						<option value="15" selected>15</option>
+						<option value="16">16</option>
+					</select>
+				<span>, </span>
+					<select name="select">
+						<option value="15">15</option>
+						<option value="15:30" selected>15:30</option>
+						<option value="16">16</option>
+					</select>
+				<span> - </span>
+					<select name="select">
+						<option value="18">18</option>
+						<option value="19" selected>19</option>
+						<option value="20">20</option>
 					</select>
 				</div>
 			)
@@ -124,34 +149,7 @@ export default class Register extends Component {
 					</div>
 				</section>
 
-				<h3 class={style.h3}>Operating Hours</h3>
-				<IconEdit size="24" class={style.edit} onClick={this.handleEditHours} />
-
-				<section class={style.section}>
-					{hours}
-					<div>
-						<span class={style.field}>Tue:</span> <span>8-12</span>
-						<span>, 13-15</span>
-					</div>
-					<div>
-						<span class={style.field}>Wed:</span> <span>8-12</span>
-						<span>, 13-15</span>
-					</div>
-					<div>
-						<span class={style.field}>Thu:</span> <span>8-12</span>
-						<span>, 13-15</span><span>, 15:30-19</span>
-					</div>
-					<div>
-						<span class={style.field}>Fri:</span> <span>8-12</span>
-						<span>, 13-15</span>
-					</div>
-					<div>
-						<span class={style.field}>Sat:</span> <span>8-12</span>
-					</div>
-					<div>
-						<span class={style.field}>Sun:</span> <span>Close</span>
-					</div>
-				</section>
+				<OperatingHours />
 
 				<h3 class={style.h3}>Auto-bid Defaults</h3>
 				<section class={style.section}>
@@ -208,12 +206,12 @@ export default class Register extends Component {
 		)
 	}
 
-	handleEditHours(event) {
-		event.preventDefault()
+	// handleEditHours(event) {
+	// 	event.preventDefault()
 
-		this.setState({
-			clinic: { employees: [] },
-			editHours: true
-		})
-	}
+	// 	this.setState({
+	// 		clinic: { employees: [] },
+	// 		editHours: true
+	// 	})
+	// }
 }
