@@ -52,13 +52,8 @@ export default class OperatingHours extends Component {
 		if(editMode) {
 			content = (
 				<section class={style.section}>
-					<Day name="Mon" values={["8", "12", "13", "15", "15:30", "19"]}/>
-					<Day name="Tue" values={["8", "12", "13", "15", "15:30", "19"]}/>
-					<Day name="Wed" values={["8", "12", "13", "15", "15:30", "19"]}/>
-					<Day name="Thu" values={["8", "12", "13", "15", "15:30", "19"]}/>
-					<Day name="Fri" values={["8", "12", "13", "15", "15:30", "19"]}/>
-					<Day name="Sat" values={["8", "12", "13", "15", "15:30", "19"]}/>
-					<Day name="Sun" values={["8", "12", "13", "15", "15:30", "19"]}/>
+					<Day name="Mon" values={{slot1: {from: "8", to: "12"}, slot2: {from: "8", to: "12"}}}/>
+					<Day name="Tue" values={{slot1: {from: "8:30", to: "12"}, slot2: {from: "8", to: "12"}}}/>
 				</section>
 			)
 		}
