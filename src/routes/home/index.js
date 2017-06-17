@@ -57,7 +57,7 @@ export default class Profile extends Component {
 		return (
 			<div class={style.home}>
 				<div class={style.createClinic}>
-					<a href="/clinic/new">Create Clinic</a>
+					<a class={style.addClinicLink} href="/clinic/new">Add Clinic</a>
 				</div>
 
 				<h1>Clinics</h1>
