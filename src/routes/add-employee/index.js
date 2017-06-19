@@ -153,29 +153,7 @@ export default class AddEmployee extends Component {
 	handleSubmit(event) {
 		event.preventDefault()
 
-		this.setState({ errors: {} })
-		let errors = {}
-
-		const elements = document.getElementById("addEmployee").elements
-
-		Array.prototype.forEach.call(elements, element => {
-			const validateName = element.dataset.validate
-			if (validateName) {
-				errors = inputValidator[validateName](errors, element.value)
-			}
-		})
-
-		if (Object.keys(errors).length) {
-			this.setState({
-				errors,
-				submit: true
-			})
-
-			focus(this.state.errors)
-			return
-		}
-
-		const clinicId = this.props.clinicId
+		this.props.clinicId
 
 		const employee = {
 			fname: document.getElementById("fname").value,

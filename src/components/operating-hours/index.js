@@ -11,13 +11,18 @@ export default class OperatingHours extends Component {
 			editMode: false
 		}
 
-		this.handleEditHours = this.handleEditHours.bind(this)
+		// this.handleEditHours = this.handleEditHours.bind(this)
 	}
 
-	render({}, {editMode}) {
+	render({clinicId}, {editMode}) {
+		console.log('id', clinicId)
+		const clinicUrl = `/clinic/${clinicId}/hours`
+
 		let content = (
 			<div>
-				<IconEdit size="24" class={style.edit} onClick={this.handleEditHours} />
+				<a href={clinicUrl}>
+					<IconEdit size="24" class={style.edit} />
+				</a>
 				<section class={style.section}>
 					<div>
 						<span class={style.field}>Mon:</span> <span>8-12</span>
@@ -66,13 +71,13 @@ export default class OperatingHours extends Component {
 		)
 	}
 
-	handleEditHours(event) {
-		console.log("click")
-		event.preventDefault()
+	// handleEditHours(event) {
+	// 	console.log("click")
+	// 	event.preventDefault()
 
-		this.setState({
-			editMode: true
-		})
-	}
+	// 	this.setState({
+	// 		editMode: true
+	// 	})
+	// }
 }
 

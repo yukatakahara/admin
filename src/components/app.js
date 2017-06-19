@@ -6,6 +6,7 @@ import Header from "./header"
 import Home from "../routes/home"
 import Login from "../routes/login"
 import Clinic from "../routes/clinic"
+import ClinicHours from "../routes/clinic-hours"
 import CreateClinic from "../routes/create-clinic"
 import AddEmployee from "../routes/add-employee"
 import Error from "../routes/error"
@@ -53,7 +54,8 @@ export default class App extends Component {
 					<Login path="/login" onRegister={this.setUser} />
 					<CreateClinic path="/clinic/new" user={user} />
 					<AddEmployee path="/clinic/:clinicId/employees/new" user={user} />
-					<Clinic path="/clinic/:id" />
+					<Clinic path="/clinic/:clinicId" />
+					<ClinicHours path="/clinic/:clinicId/hours" />
 					<Error default />
 				</Router>
 			</div>

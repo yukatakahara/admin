@@ -26,6 +26,7 @@
   "dependencies": {
     "preact": "^8.1.0",
     "preact-compat": "^3.16.0",
-    "preact-router": "^2.5.2"
+    "preact-router": "^2.5.2",
+    "rc-slider": "^8.1.3"
   }
 }
