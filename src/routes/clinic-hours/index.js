@@ -1,7 +1,7 @@
 import { h, Component } from "preact"
-import style from "./style"
 import Range from "rc-slider/lib/Range"
 import "rc-slider/assets/index.css"
+import style from "./style"
 import IconMinus from "../icons/minus"
 
 function log(value) {
