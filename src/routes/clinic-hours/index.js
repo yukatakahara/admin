@@ -54,17 +54,22 @@ class Sliders extends Component {
 		return (
 			<div class={style.slider}>
 				<div class={style.summary}>
-					<h2>{this.props.day}</h2>
-					<div class={style.time}>
-						{addAmOrPm(this.state.slot1.from)}-{addAmOrPm(this.state.slot1.to)}
-					</div>
+					<h2 class={style.day}>{this.props.day}</h2>
+					<div class={style.timeWrap}>
+						<div class={style.time}>
+							{addAmOrPm(this.state.slot1.from)} -{" "}
+							{addAmOrPm(this.state.slot1.to)}
+						</div>
 
-					<div class={style.time}>
-						{addAmOrPm(this.state.slot2.from)}-{addAmOrPm(this.state.slot2.to)}
-					</div>
+						<div class={style.time}>
+							{addAmOrPm(this.state.slot2.from)} -{" "}
+							{addAmOrPm(this.state.slot2.to)}
+						</div>
 
-					<div class={style.time}>
-						{addAmOrPm(this.state.slot3.from)}-{addAmOrPm(this.state.slot3.to)}
+						<div class={style.time}>
+							{addAmOrPm(this.state.slot3.from)} -{" "}
+							{addAmOrPm(this.state.slot3.to)}
+						</div>
 					</div>
 				</div>
 
@@ -114,7 +119,7 @@ class Sliders extends Component {
 }
 
 // Get number from slider as string: "35" (0-47)
-// Return time: 5:30pm
+// return time: 5:30pm
 const addAmOrPm = time => {
 	let hour = Math.floor(Number(time) / 2)
 
@@ -125,6 +130,8 @@ const addAmOrPm = time => {
 
 		if (Number(time) % 2 === 1) {
 			hour += ":30"
+		} else {
+			// hour += ":00"
 		}
 
 		return `${hour}pm`
@@ -136,6 +143,8 @@ const addAmOrPm = time => {
 
 	if (Number(time) % 2 === 1) {
 		hour += ":30"
+	} else {
+		// hour += ":00"
 	}
 
 	return `${hour}am`
