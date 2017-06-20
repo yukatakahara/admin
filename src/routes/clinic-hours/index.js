@@ -114,14 +114,7 @@ class Sliders extends Component {
 }
 
 const addAmOrPm = time => {
-	// console.log("number", Number(time))
-	// if(Number(time) % 2) {
-	// 	console.log(":30")
-	// }
-
 	let hour = Math.floor(Number(time) / 2)
-	console.log("time", time)
-	console.log("hour", hour)
 
 	if (hour > 11) {
 		if (hour > 12) {
