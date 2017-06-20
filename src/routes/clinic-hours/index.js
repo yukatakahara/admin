@@ -3,11 +3,13 @@ import Range from "rc-slider/lib/Range"
 import "rc-slider/assets/index.css"
 import style from "./style"
 import IconMinus from "../icons/minus"
+import IconPlus from "../icons/plus"
 
 export default class ClinicHours extends Component {
 	render() {
 		return (
 			<div class={style.home}>
+				<h1>Operating Hours</h1>
 				<Sliders day="Monday" />
 				<Sliders day="Tuesday" />
 				<Sliders day="Wednesday" />
@@ -28,7 +30,10 @@ class Sliders extends Component {
 			max: 47,
 			slot1: { from: 16, to: 24 },
 			slot2: { from: 26, to: 30 },
-			slot3: { from: 32, to: 40 }
+			slot3: { from: 32, to: 40 },
+			minus: true,
+			plus: false,
+			closed: false
 		}
 	}
 
@@ -49,16 +54,49 @@ class Sliders extends Component {
 	handleMinus = event => {
 		if (this.state.slot3) {
 			this.setState({
-				slot3: null
+				slot3: null,
+				minus: true,
+				plus: true,
+				closed: false
 			})
 		} else if (this.state.slot2) {
 			this.setState({
-				slot2: null
+				slot2: null,
+				minus: true,
+				plus: true,
+				closed: false
 			})
 		} else if (this.state.slot1) {
 			this.setState({
 				slot1: null,
+				minus: false,
+				plus: true,
 				closed: true
+			})
+		}
+	}
+
+	handlePlus = event => {
+		if (this.state.slot2) {
+			this.setState({
+				slot3: { from: 32, to: 40 },
+				plus: false,
+				minus: true,
+				closed: false
+			})
+		} else if (this.state.slot1) {
+			this.setState({
+				slot2: { from: 26, to: 30 },
+				plus: true,
+				minus: true,
+				closed: false
+			})
+		} else {
+			this.setState({
+				slot1: { from: 16, to: 24 },
+				minus: true,
+				plus: true,
+				closed: false
 			})
 		}
 	}
@@ -130,9 +168,14 @@ class Sliders extends Component {
 							marks={{ 0: "12am", 16: "8am", 32: "4pm", 46: "11pm" }}
 							class={style.range}
 						/>}
-					<div class={style.action} onClick={this.handleMinus}>
-						<IconMinus size="24" class={style.minus} />
-					</div>
+					{this.state.minus &&
+						<div class={style.action} onClick={this.handleMinus}>
+							<IconMinus size="24" class={style.minus} />
+						</div>}
+					{this.state.plus &&
+						<div class={style.action} onClick={this.handlePlus}>
+							<IconPlus size="24" class={style.plus} />
+						</div>}
 					<div class={style.clear} />
 				</div>
 
