@@ -29,10 +29,10 @@ class Sliders extends Component {
 		super(props)
 		this.state = {
 			min: 0,
-			max: 23,
-			slot1: { from: 8, to: 12 },
-			slot2: { from: 13, to: 15 },
-			slot3: { from: 16, to: 20 }
+			max: 47,
+			slot1: { from: 16, to: 24 },
+			slot2: { from: 26, to: 30 },
+			slot3: { from: 32, to: 40 }
 		}
 	}
 
@@ -55,14 +55,17 @@ class Sliders extends Component {
 			<div class={style.slider}>
 				<div class={style.summary}>
 					<h2>{this.props.day}</h2>
-					<span>{addAmOrPm(this.state.slot1.from)}-</span>
-					<span class={style.time}>{addAmOrPm(this.state.slot1.to)},</span>
+					<div class={style.time}>
+						{addAmOrPm(this.state.slot1.from)}-{addAmOrPm(this.state.slot1.to)}
+					</div>
 
-					<span>{addAmOrPm(this.state.slot2.from)}-</span>
-					<span class={style.time}>{addAmOrPm(this.state.slot2.to)},</span>
+					<div class={style.time}>
+						{addAmOrPm(this.state.slot2.from)}-{addAmOrPm(this.state.slot2.to)}
+					</div>
 
-					<span>{addAmOrPm(this.state.slot3.from)}-</span>
-					<span>{addAmOrPm(this.state.slot3.to)}</span>
+					<div class={style.time}>
+						{addAmOrPm(this.state.slot3.from)}-{addAmOrPm(this.state.slot3.to)}
+					</div>
 				</div>
 
 				<div class={style.ranges}>
@@ -73,7 +76,7 @@ class Sliders extends Component {
 						onChange={this.onSlider1Change}
 						pushable
 						allowCross={false}
-						marks={{ 0: "12am", 8: "8am", 16: "4pm", 23: "11pm" }}
+						marks={{ 0: "12am", 16: "8am", 32: "4pm", 46: "11pm" }}
 						class={style.range}
 					/>
 					<br /><br />
@@ -84,7 +87,7 @@ class Sliders extends Component {
 						onChange={this.onSlider2Change}
 						pushable
 						allowCross={false}
-						marks={{ 0: "12am", 8: "8am", 16: "4pm", 23: "11pm" }}
+						marks={{ 0: "12am", 16: "8am", 32: "4pm", 46: "11pm" }}
 						class={style.range}
 					/>
 					<br /><br />
@@ -96,7 +99,7 @@ class Sliders extends Component {
 						onChange={this.onSlider3Change}
 						pushable
 						allowCross={false}
-						marks={{ 0: "12am", 8: "8am", 16: "4pm", 23: "11pm" }}
+						marks={{ 0: "12am", 16: "8am", 32: "4pm", 46: "11pm" }}
 						class={style.range}
 					/>
 					<div class={style.action}>
@@ -111,16 +114,34 @@ class Sliders extends Component {
 }
 
 const addAmOrPm = time => {
-	if (Number(time) > 11) {
-		if (Number(time) > 12) {
-			time = time - 12
+	// console.log("number", Number(time))
+	// if(Number(time) % 2) {
+	// 	console.log(":30")
+	// }
+
+	let hour = Math.floor(Number(time) / 2)
+	console.log("time", time)
+	console.log("hour", hour)
+
+	if (hour > 11) {
+		if (hour > 12) {
+			hour = hour - 12
 		}
 
-		return `${time}pm`
+		if (Number(time) % 2 === 1) {
+			hour += ":30"
+		}
+
+		return `${hour}pm`
 	}
 
-	if (Number(time) === 0) {
-		time = 12
+	if (hour === 0) {
+		hour = 12
 	}
-	return `${time}am`
+
+	if (Number(time) % 2 === 1) {
+		hour += ":30"
+	}
+
+	return `${hour}am`
 }
