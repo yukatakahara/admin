@@ -8,8 +8,8 @@ import IconPlus from "../icons/plus"
 export default class ClinicHours extends Component {
 	render() {
 		return (
-			<div class={style.home}>
-				<h1>Operating Hours</h1>
+			<div class={style.page}>
+				<h1 class={style.header}>Operating Hours</h1>
 				<Sliders day="Monday" />
 				<Sliders day="Tuesday" />
 				<Sliders day="Wednesday" />
@@ -102,8 +102,6 @@ class Sliders extends Component {
 	}
 
 	render({}, {}) {
-		console.log(this.state)
-
 		return (
 			<div class={style.slider}>
 				<div class={style.summary}>

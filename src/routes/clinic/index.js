@@ -65,7 +65,7 @@ export default class Register extends Component {
 
 		return (
 			<div class={style.clinic}>
-				<h1>Clinic page</h1>
+				<h1 class={style.header}>Clinic page</h1>
 				<section class={style.section}>
 					<div>
 						<span class={style.field}>Name:</span> <span>{clinic.name}</span>
