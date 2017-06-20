@@ -15,7 +15,7 @@ export default class Register extends Component {
 			/** Contains any validation errors */
 			user: { jwt: "" },
 			errors: { email: "" },
-			clinic: { employees: [] },
+			clinic: { employees: [] }
 		}
 
 		// this.handleEditHours = this.handleEditHours.bind(this)
@@ -106,7 +106,7 @@ export default class Register extends Component {
 					</div>
 				</section>
 
-				<OperatingHours clinicId={this.props.clinicId}/>
+				<OperatingHours clinicId={this.props.clinicId} />
 
 				<h3 class={style.h3}>Auto-bid Defaults</h3>
 				<section class={style.section}>

@@ -8,14 +8,11 @@ export default class OperatingHours extends Component {
 		super()
 
 		this.state = {
-			editMode: false
 		}
 
-		// this.handleEditHours = this.handleEditHours.bind(this)
 	}
 
-	render({clinicId}, {editMode}) {
-		console.log('id', clinicId)
+	render({ clinicId }, {}) {
 		const clinicUrl = `/clinic/${clinicId}/hours`
 
 		let content = (
@@ -54,15 +51,6 @@ export default class OperatingHours extends Component {
 			</div>
 		)
 
-		if(editMode) {
-			content = (
-				<section class={style.section}>
-					<Day name="Mon" values={{slot1: {from: "8", to: "12"}, slot2: {from: "8", to: "12"}}}/>
-					<Day name="Tue" values={{slot1: {from: "8:30", to: "12"}, slot2: {from: "8", to: "12"}}}/>
-				</section>
-			)
-		}
-
 		return (
 			<div>
 				<h3 class={style.h3}>Operating Hours</h3>
@@ -70,14 +58,4 @@ export default class OperatingHours extends Component {
 			</div>
 		)
 	}
-
-	// handleEditHours(event) {
-	// 	console.log("click")
-	// 	event.preventDefault()
-
-	// 	this.setState({
-	// 		editMode: true
-	// 	})
-	// }
 }
-

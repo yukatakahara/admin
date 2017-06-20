@@ -5,21 +5,24 @@ export default class Day extends Component {
 	constructor() {
 		super()
 
-		this.state = {
-		}
+		this.state = {}
 
 		this.handleEditHours = this.handleEditHours.bind(this)
 	}
 
-	render({name, values}, {}) {
+	render({ name, values }, {}) {
 		return (
 			<div>
 				<span class={style.field}>{name}: </span>
 				<select name="select">
 					<option value="12am">12:00am</option>
 					<option value="12:30am">12:30am</option>
-					<option value="8:00 am" selected = {values.slot1.from === "8"}>8:00 am</option>
-					<option value="8:30 am" selected = {values.slot1.from === "8:30"}>8:30 am</option>
+					<option value="8:00 am" selected={values.slot1.from === "8"}>
+						8:00 am
+					</option>
+					<option value="8:30 am" selected={values.slot1.from === "8:30"}>
+						8:30 am
+					</option>
 					<option value="9">9</option>
 				</select>
 				<span> - </span>
@@ -65,4 +68,3 @@ export default class Day extends Component {
 		})
 	}
 }
-
