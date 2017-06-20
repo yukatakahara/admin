@@ -4,10 +4,6 @@ import "rc-slider/assets/index.css"
 import style from "./style"
 import IconMinus from "../icons/minus"
 
-function log(value) {
-	console.log(value) //eslint-disable-line
-}
-
 export default class ClinicHours extends Component {
 	render() {
 		return (
@@ -50,64 +46,91 @@ class Sliders extends Component {
 		this.setState({ slot3: { from: value[0], to: value[1] } })
 	}
 
-	render() {
+	handleMinus = event => {
+		if (this.state.slot3) {
+			this.setState({
+				slot3: null
+			})
+		} else if (this.state.slot2) {
+			this.setState({
+				slot2: null
+			})
+		} else if (this.state.slot1) {
+			this.setState({
+				slot1: null,
+				closed: true
+			})
+		}
+	}
+
+	render({}, {}) {
+		console.log(this.state)
+
 		return (
 			<div class={style.slider}>
 				<div class={style.summary}>
 					<h2 class={style.day}>{this.props.day}</h2>
 					<div class={style.timeWrap}>
-						<div class={style.time}>
-							{addAmOrPm(this.state.slot1.from)} -{" "}
-							{addAmOrPm(this.state.slot1.to)}
-						</div>
+						{this.state.slot1 &&
+							<div class={style.time}>
+								{addAmOrPm(this.state.slot1.from)} -{" "}
+								{addAmOrPm(this.state.slot1.to)}
+							</div>}
 
-						<div class={style.time}>
-							{addAmOrPm(this.state.slot2.from)} -{" "}
-							{addAmOrPm(this.state.slot2.to)}
-						</div>
+						{this.state.slot2 &&
+							<div class={style.time}>
+								{addAmOrPm(this.state.slot2.from)} -{" "}
+								{addAmOrPm(this.state.slot2.to)}
+							</div>}
 
-						<div class={style.time}>
-							{addAmOrPm(this.state.slot3.from)} -{" "}
-							{addAmOrPm(this.state.slot3.to)}
-						</div>
+						{this.state.slot3 &&
+							<div class={style.time}>
+								{addAmOrPm(this.state.slot3.from)} -{" "}
+								{addAmOrPm(this.state.slot3.to)}
+							</div>}
+						{this.state.closed &&
+							<div class={style.closed}>
+								Closed
+							</div>}
 					</div>
 				</div>
 
 				<div class={style.ranges}>
-					<Range
-						defaultValue={[this.state.slot1.from, this.state.slot1.to]}
-						min={this.state.min}
-						max={this.state.max}
-						onChange={this.onSlider1Change}
-						pushable
-						allowCross={false}
-						marks={{ 0: "12am", 16: "8am", 32: "4pm", 46: "11pm" }}
-						class={style.range}
-					/>
-					<br /><br />
-					<Range
-						defaultValue={[this.state.slot2.from, this.state.slot2.to]}
-						min={this.state.min}
-						max={this.state.max}
-						onChange={this.onSlider2Change}
-						pushable
-						allowCross={false}
-						marks={{ 0: "12am", 16: "8am", 32: "4pm", 46: "11pm" }}
-						class={style.range}
-					/>
-					<br /><br />
-					<Range
-						class={style.range}
-						defaultValue={[this.state.slot3.from, this.state.slot3.to]}
-						min={this.state.min}
-						max={this.state.max}
-						onChange={this.onSlider3Change}
-						pushable
-						allowCross={false}
-						marks={{ 0: "12am", 16: "8am", 32: "4pm", 46: "11pm" }}
-						class={style.range}
-					/>
-					<div class={style.action}>
+					{this.state.slot1 &&
+						<Range
+							defaultValue={[this.state.slot1.from, this.state.slot1.to]}
+							min={this.state.min}
+							max={this.state.max}
+							onChange={this.onSlider1Change}
+							pushable
+							allowCross={false}
+							marks={{ 0: "12am", 16: "8am", 32: "4pm", 46: "11pm" }}
+							class={style.range}
+						/>}
+					{this.state.slot2 &&
+						<Range
+							defaultValue={[this.state.slot2.from, this.state.slot2.to]}
+							min={this.state.min}
+							max={this.state.max}
+							onChange={this.onSlider2Change}
+							pushable
+							allowCross={false}
+							marks={{ 0: "12am", 16: "8am", 32: "4pm", 46: "11pm" }}
+							class={style.range}
+						/>}
+					{this.state.slot3 &&
+						<Range
+							class={style.range}
+							defaultValue={[this.state.slot3.from, this.state.slot3.to]}
+							min={this.state.min}
+							max={this.state.max}
+							onChange={this.onSlider3Change}
+							pushable
+							allowCross={false}
+							marks={{ 0: "12am", 16: "8am", 32: "4pm", 46: "11pm" }}
+							class={style.range}
+						/>}
+					<div class={style.action} onClick={this.handleMinus}>
 						<IconMinus size="24" class={style.minus} />
 					</div>
 					<div class={style.clear} />
