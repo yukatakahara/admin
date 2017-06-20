@@ -113,6 +113,8 @@ class Sliders extends Component {
 	}
 }
 
+// Get number from slider as string: "35" (0-47)
+// Return time: 5:30pm
 const addAmOrPm = time => {
 	let hour = Math.floor(Number(time) / 2)
 
