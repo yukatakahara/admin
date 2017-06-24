@@ -57,10 +57,11 @@ export default class Profile extends Component {
 		return (
 			<div class={style.home}>
 				<div class={style.createClinic}>
-					<a href="/clinic/new">Create Clinic</a>
+					<a class={style.addClinicLink} href="/clinic/new">Add Clinic</a>
 				</div>
 
-				<h1 class={style.header}>Clinics</h1>
+				<h3 class={style.header}>Clinics</h3>
+
 				{clinics.map(clinic => {
 					return (
 						<section>
