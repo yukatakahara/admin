@@ -14,7 +14,9 @@ export default class Header extends Component {
 		let link2 = null
 
 		if (user.jwt) {
-			link = <span><a href="#" onClick={this.handleLogoutClick}>LOG OUT</a></span>
+			link = (
+				<span><a href="#" onClick={this.handleLogoutClick}>LOG OUT</a></span>
+			)
 		} else {
 			link2 = <span><Link href="/login">LOG IN</Link></span>
 		}
@@ -22,16 +24,14 @@ export default class Header extends Component {
 		return (
 			<header class={style.header}>
 				<h1><Link href="/" class={style.title}>Admin</Link></h1>
-				<nav>
-					
-				</nav>
+				<nav />
 				<div class={style.navigation}>
 					<span class={style.navItem}>Clinics</span>
 					<span class={style.navItem}>Analytics</span>
 					{link}
 					{link2}
 				</div>
-				<hr/>
+				<hr />
 			</header>
 		)
 	}
